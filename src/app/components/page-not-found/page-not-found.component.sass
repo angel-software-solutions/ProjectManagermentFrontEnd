@@ -1,0 +1,72 @@
+.page-not-found-wrapper
+  display: flex
+  align-items: center
+  justify-items: center
+  height: 100%
+  background-color: whitesmoke
+  background-image: url("/assets/404.jpg")
+  background-position: center
+  background-size: cover
+
+  .container-fluid
+    .stars-wrapper
+      width: 100%
+      height: 100%
+      background-image: url("/assets/stars.svg")
+      background-position: center
+      background-size: contain
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+
+
+  .right-section
+    padding-right: 3rem
+
+    .heading-404
+      font-size: 8rem
+      margin-bottom: 0
+      text-align: right
+      font-family: "Roboto Bold", sans-serif
+
+      .color-highlight
+        color: #2bbbad
+
+    .sub-title
+      font-size: 3rem
+      margin-bottom: 20px
+      margin-top: -20px
+      text-align: right
+      font-family: "Roboto Condensed", sans-serif
+
+      span
+        padding: 0 8px
+        border-bottom: 1px solid lightgray
+
+    .list-group
+      background-color: transparent
+
+      .list-group-item
+        background-color: transparent
+        text-align: right
+        border: none
+
+        .nav-link
+          color: black
+          text-decoration: none
+
+          .fa
+            margin-right: 8px
+
+          &:hover
+            color: white
+            text-decoration: none
+
+.stars-wrapper
+  animation: blinkblink 7s linear infinite
+
+@keyframes blinkblink
+  50%
+    opacity: 0.1

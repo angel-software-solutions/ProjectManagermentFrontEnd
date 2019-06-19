@@ -1,0 +1,45 @@
+<div class="container login-page-wrapper">
+  <div class="row">
+    <div class="offset-3 col-6 text-center">
+      <div class="custom-alert-wrapper mt-2">
+        <div *ngIf="ifLoginError" class="alert alert-danger alert-dismissible fade show" role="alert">
+          We are not able to process your login at this time, please try again later.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="onLoginErrorHide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+      <div class="login-control-wrapper">
+        <div class="wrapper-heading">
+          Welcome to HoneyWorld!
+        </div>
+        <form (submit)="onFormSubmitted()">
+          <div class="control-wrapper">
+            <div class="form-group">
+              <input [(ngModel)]="loginModel.username" class="form-control" name="username" placeholder="Username" type="text">
+            </div>
+            <div class="form-group">
+              <input type="password" [(ngModel)]="loginModel.password" class="form-control" name="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+              <div class="row action-wrapper">
+                <div class="col-md-6">
+                  <button class="btn btn-primary" type="submit" name="submit">
+                    <i *ngIf="isLoggingInProgress" class="fa fa-spin fa-circle-notch" style=""></i>
+                    Login
+                  </button>
+                </div>
+                <div class="col-md-6">
+                  <button class="btn btn-light" type="button" name="clear">Clear</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="additional-actions text-right">
+        <a href="/" class="btn btn-link">Forgot Password?</a>
+      </div>
+    </div>
+  </div>
+</div>

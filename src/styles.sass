@@ -1,0 +1,88 @@
+/* You can add global styles to this file, and also import other style files */
+
+$primary-button-border-color: #21a79a
+
+html, body
+  height: 100%
+
+@font-face
+  font-family: 'Roboto'
+  src: url("./assets/fonts/Roboto-Regular.ttf")
+
+@font-face
+  font-family: 'Roboto Black'
+  src: url("./assets/fonts/Roboto-Black.ttf")
+
+@font-face
+  font-family: 'Roboto Bold'
+  src: url("./assets/fonts/Roboto-Bold.ttf")
+
+@font-face
+  font-family: 'Roboto Light'
+  src: url("./assets/fonts/Roboto-Light.ttf")
+
+@font-face
+  font-family: 'Roboto Medium'
+  src: url("./assets/fonts/Roboto-Medium.ttf")
+
+@font-face
+  font-family: 'Roboto Thin'
+  src: url("./assets/fonts/Roboto-Thin.ttf")
+
+body, html
+  font-family: Roboto, sans-serif
+
+
+// Overriding primary button styles
+.btn-primary
+  background-color: #2bbbad
+  border-color: $primary-button-border-color
+
+  &:hover, &:focus
+    background-color: #25a193
+    border-color: #25a193
+
+  &:not(:disabled):not(.disabled).active,
+  &:not(:disabled):not(.disabled):active,
+  &.show > .btn-primary.dropdown-toggle
+    background-color: #25a193
+    border-color: #25a193
+
+  &:disabled, &.disabled
+    color: black
+    background-color: #8accbf
+    border-color: #75ada2
+
+    &:hover
+      cursor: not-allowed
+
+
+.btn-outline-primary
+  border-color: #2bbbad
+  color: #2bbbad
+
+  &:hover, &:focus
+    background-color: #25a193
+    border-color: #25a193
+
+  &:not(:disabled):not(.disabled).active,
+  &:not(:disabled):not(.disabled):active,
+  &.show > .btn-primary.dropdown-toggle
+    border-color: #25a193
+
+.btn-transparent
+  background-color: transparent
+
+  &.active
+    background-color: #2bbbad !important
+    border-color: #2bbbad !important
+
+::ng-deep .ql-editor
+  min-height: 120px
+  max-height: 300px
+
+::-webkit-scrollbar
+  width: 10px
+
+  &:hover
+    width: 5px

@@ -1,0 +1,30 @@
+<!--https://github.com/gmerabishvili/angular-ng-autocomplete#readme -->
+
+<div class="app-autocomplete-wrapper">
+  <div *ngIf="!inlineInput">{{inputLabel}}</div>
+  <div class="ng-autocomplete">
+    <!--
+                     (inputFocused)='onAutoCompleteInputFocus($event)'-->
+    <ng-autocomplete [data]="autoCompleteDataList"
+                     [searchKeyword]="autoCompleteSearchQuery"
+                     (selected)='onAutoCompleteItemSelected($event)'
+                     (inputChanged)='onAutoCompleteSearchQueryChanged($event)'
+                     (inputFocused)="onInputFocusEventFired($event)"
+                     [itemTemplate]="itemTemplate"
+                     [notFoundTemplate]="notFoundTemplate">
+    </ng-autocomplete>
+
+    <ng-template #itemTemplate let-item>
+      <div>
+        <a>
+          <span *ngIf="item[dropdownListProperty]" [innerHTML]="item[dropdownListProperty]"></span>
+          <span *ngIf="item[dropdownListSecondaryProperty]" [innerHTML]="item[dropdownListSecondaryProperty]"></span>
+        </a>
+      </div>
+    </ng-template>
+
+    <ng-template #notFoundTemplate let-notFound>
+      <div [innerHTML]="notFound"></div>
+    </ng-template>
+  </div>
+</div>

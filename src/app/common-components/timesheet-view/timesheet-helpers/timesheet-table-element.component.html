@@ -1,0 +1,363 @@
+<div class="custom-table-wrapper">
+  <div class="row">
+    <div class="col">
+      <div class="table-wrapper">
+        <table class="table">
+          <thead>
+          <tr class="header-row">
+            <th [ngStyle]="{'width':col.minWidth}" *ngFor="let col of tableHeaders" [class.has-input]="col.dataType=='date'">
+              <div class="header-container" [class.today]="isToday(col.displayLabel)" [class.weekend]="isWeekend(col.displayLabel)">
+                <div *ngIf="col.dataType=='string'">{{col.displayLabel}}</div>
+                <div *ngIf="col.dataType=='date'">
+                  <div class="text-center">{{getDisplayDayName(col.displayLabel) + ' - ' + getDisplayDate(col.displayLabel)}}</div>
+                </div>
+              </div>
+            </th>
+            <th width="100">Total</th>
+            <th width="100">Action</th>
+          </tr>
+          </thead>
+          <tbody *ngFor="let rowIndex = index; let row of timesheetData" [attr.data.index]="rowIndex">
+          <ng-container *ngFor="let taskIndex=index; let task of row.Tasks">
+            <tr class="task-row" *ngIf="!task.isNewTask" [attr.data.taskIndex]="taskIndex">
+              <!--<td>&nbsp;</td>-->
+              <td>
+                <div class="info-wrapper" placement="right" [ngbTooltip]="row.ProjectDescription">
+                  <div class="project-number">{{row.Project}}</div>
+                  <div class="description" [innerHTML]="row.ProjectDescription"></div>
+                </div>
+              </td>
+              <td class="task-name">
+                <span [ngbTooltip]="task.Task">{{task.Task}}</span>
+              </td>
+              <td class="task-name">
+                <span [ngbTooltip]="task.ProjectRole">{{task.ProjectRole}}</span>
+              </td>
+              <td class="data-cell" *ngFor="let entryIndex=index; let entry of task.Timesheets" [attr.data.index]="entryIndex">
+                <div *ngIf="!entry.IsLocked" class="action-wrapper" [ngbTooltip]="tooltipContainer" container="body">
+                  <input type="text" class="form-control" [(ngModel)]="entry.RegularHr" name="{{entry.Date}}"
+                         AllowOnlyNumbers (ngModelChange)="onRowUpdated($event)"
+                         (blur)="updateTimesheetByGroup($event, row, task, entry)">
+                  <i class="fa fa-pencil-alt" (click)="showEditModal(row, task, entry)"></i>
+                </div>
+                <div *ngIf="entry.IsLocked" class="action-wrapper" [ngbTooltip]="tooltipContainer" container="body">
+                  <span class="disabled-span">{{entry.RegularHr}}</span>
+                  <i class="fa fa-eye" (click)="showViewModal(row, task, entry)"></i>
+                </div>
+
+                <ng-template #tooltipContainer>
+                  <div class="tooltip-wrapper">
+                    <div class="tooltip-header">
+                      <strong>Detailed Explained</strong>
+                    </div>
+                    <div class="text-left">
+                      Regular Time : <span>{{entry?.RegularHr || 0 | number}}</span>
+                    </div>
+                    <div class="text-left">
+                      Over time : <span>{{entry?.OTHr || 0 | number}}</span>
+                    </div>
+                    <div class="text-left">
+                      Double time : <span>{{entry?.DTHr || 0 | number}}</span>
+                    </div>
+                    <div class="text-left">
+                      Banked time : <span>{{entry?.BOTHr || 0 | number}}</span>
+                    </div>
+                  </div>
+                </ng-template>
+              </td>
+              <td class="data-cell">
+                <div class="row-sum" [ngbTooltip]="rowSumTooltipContainer" container="body">
+                  {{task['rowSum'].RegularHr | number}}
+                </div>
+                <ng-template #rowSumTooltipContainer>
+                  <div class="tooltip-wrapper">
+                    <div class="tooltip-header">
+                      <strong>Detailed Summary</strong>
+                    </div>
+                    <div class="text-left">
+                      Regular Time : <span>{{task['rowSum']?.RegularHr || 0 | number}}</span>
+                    </div>
+                    <div class="text-left">
+                      Over time : <span>{{task['rowSum']?.OTHr || 0 | number}}</span>
+                    </div>
+                    <div class="text-left">
+                      Double time : <span>{{task['rowSum']?.DTHr || 0 | number}}</span>
+                    </div>
+                    <div class="text-left">
+                      Banked time : <span>{{task['rowSum']?.BOTHr || 0 | number}}</span>
+                    </div>
+                    <div class="text-left tooltip-bottom-row">
+                      Total : {{getTooltipSumForLogs(task['rowSum'])}}
+                    </div>
+                  </div>
+                </ng-template>
+              </td>
+              <td class="action-column" [attr.data.index]="rowIndex+'-'+taskIndex+'-'+(timesheetData||[]).length">
+                <div class="btn-group" *ngIf="!task.isNewTask">
+                  <button *ngIf="rowIndex == ((timesheetData||[]).length-1)" class="btn btn-primary add-button" type="button" (click)="addNewRow(row, task)"><i class="fa fa-plus"></i></button>
+                  <button class="btn btn-danger delete-button" type="button" (click)="deleteEntryForTask(row, task)"><i class="fa fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+            <!--TODO New Task-->
+            <tr class="task-row body-row add-new" *ngIf="task.isNewTask">
+              <td>
+                <app-auto-complete (on-item-selected)="onAutoCompleteItemSelected($event, row, task, 'ProjectGuid')"
+                                   (on-query-changed)="onAutoCompleteSearchQueryChanged($event, row, task, 'ProjectGuid')"
+                                   (on-focus)="onAutoCompleteSearchQueryChanged($event, row, task, 'ProjectGuid')"
+                                   [input-label]="'Project'"
+                                   [search-keyword]="'Number'"
+                                   [dropdown-list-property]="'Number'"
+                                   [dropdown-list-secondary-property]="'Description'"
+                                   [inline-input]="true"
+                                   [autoCompleteDataList]="row.autoCompleteDataList"></app-auto-complete>
+              </td>
+              <td>
+                <app-auto-complete (on-item-selected)="onAutoCompleteItemSelected($event, row, task, 'FeatureGuid')"
+                                   (on-query-changed)="onAutoCompleteSearchQueryChanged($event, row, task, 'FeatureGuid')"
+                                   (on-focus)="onAutoCompleteSearchQueryChanged($event, row, task, 'FeatureGuid')"
+                                   [input-label]="'Task'"
+                                   [search-keyword]="'Description'"
+                                   [dropdown-list-property]="'Description'"
+                                   [inline-input]="true"
+                                   [autoCompleteDataList]="task.autoCompleteDataList"></app-auto-complete>
+              </td>
+              <td>
+                <app-auto-complete (on-item-selected)="onAutoCompleteItemSelected($event, row, task, 'ProjectRoleGuid')"
+                                   (on-query-changed)="onAutoCompleteSearchQueryChanged($event, row, task, 'ProjectRole')"
+                                   (on-focus)="onAutoCompleteSearchQueryChanged($event, row, task, 'ProjectRole')"
+                                   [input-label]="'Code'"
+                                   [search-keyword]="'Code'"
+                                   [dropdown-list-property]="'Code'"
+                                   [inline-input]="true"
+                                   [autoCompleteDataList]="projectRoleAutoCompleteData"></app-auto-complete>
+              </td>
+              <td class="data-cell" *ngFor="let colIndex=index; let entry of task.Timesheets" [attr.data.index]="colIndex">
+                <div class="action-wrapper" [ngbTooltip]="tooltipContainer" container="body">
+                  <input type="text" class="form-control" [(ngModel)]="entry.RegularHr" name="{{task.guid+'_'+ entry.Date}}"
+                         [disabled]="entry.IsLocked" AllowOnlyNumbers (ngModelChange)="onRowUpdated($event)" (blur)="updateTimesheetByGroup($event, row, task, entry, true)">
+                  <i *ngIf="!entry.IsLocked" class="fa fa-pencil-alt" (click)="showEditModal(row, task, entry)"></i>
+                  <i *ngIf="entry.IsLocked" class="fa fa-eye" (click)="showViewModal(row, task, entry)"></i>
+                </div>
+
+                <ng-template #tooltipContainer>
+                  <div class="tooltip-wrapper">
+                    <div class="tooltip-header">
+                      <strong>Detailed Explained</strong>
+                    </div>
+                    <div class="text-left">
+                      Regular Time : <span>{{entry?.RegularHr}}</span>
+                    </div>
+                    <div class="text-left">
+                      Over time : <span>{{entry?.OTHr}}</span>
+                    </div>
+                    <div class="text-left">
+                      Double time : <span>{{entry?.DTHr}}</span>
+                    </div>
+                    <div class="text-left">
+                      Banked time : <span>{{entry?.BOTHr}}</span>
+                    </div>
+                  </div>
+                </ng-template>
+              </td>
+              <td>0</td>
+              <td>
+                <button class="btn btn-danger" type="button" (click)="removeNewAddedRow($event)"><i class="fa fa-times"></i></button>
+              </td>
+            </tr>
+          </ng-container>
+          </tbody>
+          <tbody *ngIf="(timesheetData||[]).length==0" class="create-new-task">
+          <tr class="task-row body-row add-new" *ngIf="newTask.isNewTask">
+            <td>
+              <app-auto-complete (on-item-selected)="onAutoCompleteItemSelected($event, newProject, newTask, 'ProjectGuid')"
+                                 (on-query-changed)="onAutoCompleteSearchQueryChanged($event, newProject, newTask, 'ProjectGuid')"
+                                 (on-focus)="onAutoCompleteSearchQueryChanged($event, newProject, newTask, 'ProjectGuid')"
+                                 [input-label]="'Project'"
+                                 [search-keyword]="'Number'"
+                                 [dropdown-list-property]="'Number'"
+                                 [dropdown-list-secondary-property]="'Description'"
+                                 [inline-input]="true"
+                                 [autoCompleteDataList]="newProject.autoCompleteDataList"></app-auto-complete>
+            </td>
+            <td>
+              <app-auto-complete (on-item-selected)="onAutoCompleteItemSelected($event, newProject, newTask, 'FeatureGuid')"
+                                 (on-query-changed)="onAutoCompleteSearchQueryChanged($event, newProject, newTask, 'FeatureGuid')"
+                                 (on-focus)="onAutoCompleteSearchQueryChanged($event, newProject, newTask, 'FeatureGuid')"
+                                 [input-label]="'Task'"
+                                 [search-keyword]="'Description'"
+                                 [dropdown-list-property]="'Description'"
+                                 [inline-input]="true"
+                                 [autoCompleteDataList]="newTask.autoCompleteDataList"></app-auto-complete>
+            </td>
+            <td>
+              <app-auto-complete (on-item-selected)="onAutoCompleteItemSelected($event, newProject, newTask, 'ProjectRoleGuid')"
+                                 (on-query-changed)="onAutoCompleteSearchQueryChanged($event, newProject, newTask, 'ProjectRole')"
+                                 (on-focus)="onAutoCompleteSearchQueryChanged($event, newProject, newTask, 'ProjectRole')"
+                                 [input-label]="'Project Role'"
+                                 [search-keyword]="'Code'"
+                                 [dropdown-list-property]="'Code'"
+                                 [inline-input]="true"
+                                 [autoCompleteDataList]="projectRoleAutoCompleteData"></app-auto-complete>
+            </td>
+            <td class="data-cell" *ngFor="let colIndex=index; let newTaskEntry of newTask.Timesheets" [attr.data.index]="colIndex">
+              <div class="action-wrapper" [ngbTooltip]="tooltipContainer" container="body" [attr.data.isLocked]="newTaskEntry.IsLocked">
+                <div *ngIf="newTaskEntry.IsLocked" class="action-wrapper" [ngbTooltip]="tooltipContainer" container="body">
+                  <span class="disabled-span">{{newTaskEntry.RegularHr}}</span>
+                </div>
+                <div *ngIf="!newTaskEntry.IsLocked" class="action-wrapper" [ngbTooltip]="tooltipContainer" container="body">
+                  <input type="text" class="form-control" [(ngModel)]="newTaskEntry.RegularHr"
+                         AllowOnlyNumbers name="{{newTask.FeatureGuid+'_'+ newTaskEntry.Date}}"
+                         [disabled]="newTaskEntry.IsLocked" (ngModelChange)="onRowUpdated($event)"
+                         (blur)="updateTimesheetByGroup($event, newProject, newTask, newTaskEntry, true)">
+                  <i class="fa fa-pencil-alt" (click)="showEditModal(newProject, newTask, newTaskEntry)"></i>
+                </div>
+              </div>
+              <ng-template #tooltipContainer>
+                <div class="tooltip-wrapper">
+                  <div class="tooltip-header">
+                    <strong>Detailed Explained</strong>
+                  </div>
+                  <div class="text-left">
+                    Regular Time : <span>{{newTaskEntry?.RegularHr || 0 | number}}</span>
+                  </div>
+                  <div class="text-left">
+                    Over time : <span>{{newTaskEntry?.OTHr || 0 | number}}</span>
+                  </div>
+                  <div class="text-left">
+                    Double time : <span>{{newTaskEntry?.DTHr || 0 | number}}</span>
+                  </div>
+                  <div class="text-left">
+                    Banked time : <span>{{newTaskEntry?.BOTHr || 0 | number}}</span>
+                  </div>
+                </div>
+              </ng-template>
+            </td>
+          </tr>
+          </tbody>
+          <tbody class="timesheet-summary-row" *ngIf="(timesheetData||[]).length > 0">
+          <tr>
+            <td class="data-cell" colspan="3">
+              <div class="column-total">
+                Total Regular Hours
+              </div>
+            </td>
+            <ng-container *ngFor="let colIndex=index; let summaryItem of summaryRow.Timesheets">
+              <td class="data-cell" [attr.data.index]="colIndex">
+                <div class="column-total">
+                  <ng-container *ngIf="isValidDate(summaryItem.Date)">
+                    <div [ngbTooltip]="summaryTooltipContainer" container="body">
+                      {{summaryItem.RegularHr || 0 | number}}
+                    </div>
+                    <ng-template #summaryTooltipContainer>
+                      <div class="tooltip-wrapper">
+                        <div class="tooltip-header">
+                          <strong>Detailed Summary</strong>
+                        </div>
+                        <div class="text-left">
+                          Regular Time : <span>{{summaryItem?.RegularHr || 0 | number}}</span>
+                        </div>
+                        <div class="text-left">
+                          Over time : <span>{{summaryItem?.OTHr || 0 | number}}</span>
+                        </div>
+                        <div class="text-left">
+                          Double time : <span>{{summaryItem?.DTHr || 0 | number}}</span>
+                        </div>
+                        <div class="text-left">
+                          Banked time : <span>{{summaryItem?.BOTHr || 0 | number}}</span>
+                        </div>
+                        <div class="text-left">
+                          Total : <span>{{getTooltipSumForLogs(summaryItem) | number}}</span>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ng-container>
+                </div>
+              </td>
+            </ng-container>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Modal Template for Editing Full details of Timesheet-->
+<ng-template #modalContent let-close="close">
+  <div class="modal-header">
+    <h5 class="modal-title">{{selectedRow?.Project}} - {{selectedTask?.Task}} ({{getDisplayDayName(selectedEntry?.Date)}}-{{getDisplayDate(selectedEntry?.Date)}})</h5>
+    <button type="button" tabindex="8" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (submit)="onModalSaveButtonClick($event)">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="regular_log">Regular</label>
+              <input type="text" name="regularHr" autofocus AllowOnlyNumbers tabindex="1" [(ngModel)]="selectedEntry.RegularHr" class="form-control" id="regular_log">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="OT_Log">OT</label>
+              <input type="text" tabindex="2" AllowOnlyNumbers name="otHr" [(ngModel)]="selectedEntry.OTHr" class="form-control" id="OT_Log">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="DT_Log">DT</label>
+              <input type="text" tabindex="3" AllowOnlyNumbers name="dtHr" [(ngModel)]="selectedEntry.DTHr" class="form-control" id="DT_Log">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="BT_Log">BT</label>
+              <input type="text" tabindex="4" AllowOnlyNumbers name="btHr" [(ngModel)]="selectedEntry.BOTHr" class="form-control" id="BT_Log">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <!--{{selectedEntry.SRNotes}}
+              <br>-->
+              <label>Service Report Notes</label>
+              <!--https://ckeditor.com/docs/ckeditor4/latest/guide/dev_example_setups.html#article-editor-->
+              <!--<ckeditor [(ngModel)]="selectedEntry.SRNotes" [config]="ckEditorToolbarConfig"></ckeditor>-->
+              <ckeditor [name]="'documenthandling'" [config]="ckEditorToolbarConfig"
+                        [(ngModel)]="selectedEntry.SRNotes"></ckeditor>
+              <!--https://github.com/KillerCodeMonkey/ngx-quill-->
+
+              <!--<textarea name="srNotes" [(ngModel)]="selectedEntry.SRNotes" class="form-control"></textarea>-->
+              <!--{{selectedEntry.SRNotes}}-->
+              <!--<app-ngx-editor [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="selectedEntry.SRNotes"></app-ngx-editor>-->
+              <!-- <quill-editor ngModelOptions="standalone" [(ngModel)]="selectedEntry.SRNotes">
+                &lt;!&ndash;<div quill-editor-toolbar>
+                  <span class="ql-formats">
+                    <button class="ql-bold" [title]="'Bold'"></button>
+                  </span>
+                  <span class="ql-formats">
+                    <select class="ql-align" [title]="'Aligment'">
+                      <option selected></option>
+                      <option value="center"></option>
+                      <option value="right"></option>
+                      <option value="justify"></option>
+                    </select>
+                  </span>
+                </div>&ndash;&gt;
+              </quill-editor>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" tabindex="6" class="btn btn-primary" (click)="onModalSaveButtonClick($event)">Save</button>
+    <button type="button" tabindex="7" class="btn btn-secondary" (click)="onModalCloseButtonClick()">Close</button>
+  </div>
+</ng-template>

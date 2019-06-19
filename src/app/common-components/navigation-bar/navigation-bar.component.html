@@ -1,0 +1,74 @@
+<nav class="app-navbar navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    <img class="nav-logo" src="/assets/logo.svg" alt="HoneyWorld!">
+    HoneyWorld!
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" *ngFor="let item of navigationBarItems">
+        <a class="nav-link" routerLink="{{item.route}}" routerLinkActive="active">
+          <i class="fa {{item.iconClass}}"></i>
+          <span>{{item.displayLabel}}</span>
+        </a>
+      </li>
+    </ul>
+
+    <!--<li class="nav-item">
+      <a class="nav-link" routerLink="/projects" routerLinkActive="active">
+        <i class="fa fa-folder"></i>
+        <span>Projects</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/tasks" routerLinkActive="active">
+        <i class="fa fa-paper-plane"></i>
+        <span>Tasks</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/timesheet" routerLinkActive="active">
+        <i class="fa fa-calendar-alt"></i>
+        <span>Timesheet</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/users" routerLinkActive="active">
+        <i class="fa fa-users"></i>
+        <span>Users</span>
+      </a>
+    </li>-->
+
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown user-initials active" [class.show]="isNavbarDropdownOpened">
+        <div class="btn-group" role="group">
+          <a #navbarDropdownButton class="nav-link active" ngbTooltip="{{userFullName}}" (click)="showDropdownMenu($event)" placement="left" container="body">{{userInitialNames}}</a>
+          <div class="dropdown-menu" [class.show]="isNavbarDropdownOpened" aria-labelledby="btnGroupDrop1" x-placement="bottom-start">
+            <div class="user-profile">
+              <span class="profile-pic-container">
+                <span class="fa fa-user"></span>
+              </span>
+              {{userFullName}}
+            </div>
+            <a class="dropdown-item" routerLink="/profile" routerLinkActive="active" href="#">
+              <i class="fa fa-user"></i>
+              My Profile
+            </a>
+            <a class="dropdown-item" routerLink="/settings" routerLinkActive="active" href="#">
+              <i class="fa fa-cog"></i>
+              Settings
+            </a>
+            <a class="dropdown-item" (click)="onLogoutButtonClicked()">
+              <i class="fa fa-sign-out-alt"></i>
+              Logout
+            </a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

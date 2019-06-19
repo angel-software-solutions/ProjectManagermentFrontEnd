@@ -1,0 +1,21 @@
+<div class="page-not-found-wrapper">
+  <div class="container-fluid">
+    <div class="stars-wrapper">&nbsp;</div>
+    <div class="row">
+      <div class="col">
+        <div class="right-section">
+          <h1 class="heading-404">4<span class="color-highlight">0</span>4</h1>
+          <div class="sub-title"><span>Page not found</span></div>
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let item of navigationBarItems">
+              <a class="nav-link" routerLink="{{item.route}}" routerLinkActive="active">
+                <i class="fa {{item.iconClass}}"></i>
+                <span>{{item.displayLabel}}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

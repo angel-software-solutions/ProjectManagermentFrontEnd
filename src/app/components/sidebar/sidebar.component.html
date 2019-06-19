@@ -1,0 +1,70 @@
+<div #sideBarWrapper *ngIf="isSidebarVisible">
+  <p-sidebar [(visible)]="isSidebarVisible" [appendTo]="'body'" [styleClass]="'sample-class'">
+    <div class="sidebar">
+      <div class="search-wrapper">
+        <input placeholder="Search {{activeNavigationItem.label}}" type="text" class="form-control" name="searchTerm" id="searchTerm" [(ngModel)]="searchTerm">
+        <i class="fa fa-search"></i>
+      </div>
+      <ul class="nav nav-pills navigation-tabs">
+        <li class="nav-item" *ngFor="let navItem of navigationItems">
+          <button class="btn btn-transparent nav-link"
+                  (click)="selectItem(navItem)"
+                  [class.active]="isNavItemActive(navItem)">{{navItem.label}}</button>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-transparent nav-link custom-nav-item"
+                  (click)="selectItem(customDropdownOptions[0])"
+                  [ngbTooltip]="customNavItem.label" placement="bottom"
+                  [class.active]="customNavItem.isCustomItem && isNavItemActive(customNavItem)">
+            {{customNavItem.label}}
+          </button>
+        </li>
+        <li class="nav-item dropdown" [class.show]="isNavbarDropdownOpened">
+          <button type="button" class="btn btn-transparent" #navbarDropdownButton (click)="showDropdownMenu()">
+            <i class="fa fa-bars"></i>
+          </button>
+          <div class="dropdown-menu" [class.show]="isNavbarDropdownOpened">
+            <ng-container *ngFor="let optionItem of customDropdownOptions">
+              <a class="dropdown-item" [class.active]="isDropDownItemActive(optionItem)" (click)="selectItem(optionItem)"><i class="fa {{optionItem.menuIcon}}"></i> {{optionItem.label}}</a>
+            </ng-container>
+          </div>
+        </li>
+      </ul>
+      <div class="sidebar-content-wrapper">
+        <ng-container *ngIf="!customNavItem.isCustomItem">
+          <div [ngSwitch]="activeNavigationItem.id">
+            <div *ngSwitchCase="'project'">
+              <ul class="item-listings">
+                <li class="list-time" *ngFor="let projectItem of listingItems | filterArray:'Number':searchTerm" (click)="onProjectItemClicked($event, projectItem)">
+                  <div class="content">
+                    <span class="project-status {{getItemCSSClass(projectItem)}}" [ngbTooltip]="projectItem.status" placement="right"></span>
+                    <div class="name">{{projectItem.Number}}<span class="description">{{projectItem.Description}}</span></div>
+                    <div class="customer">{{projectItem.client}}</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div *ngSwitchCase="'employee'">
+              Employees
+            </div>
+            <div *ngSwitchCase="'favourite'">
+              Favourite
+            </div>
+            <div *ngSwitchCase="'custom'">
+              Custom
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="customNavItem.isCustomItem">
+          Custom Navigation
+        </ng-container>
+      </div>
+    </div>
+  </p-sidebar>
+  <!--<p-contextMenu #myContextMenu [model]="contextMenuItems" appendTo="body"></p-contextMenu>-->
+</div>
+<button #navigationToggleBtn type="button" class="btn btn-primary navigation-toggle"
+        [class.active]="isSidebarVisible" (click)="toggleSidebar()">
+  <i class="fa fa-chevron-right" *ngIf="!isSidebarVisible"></i>
+  <i class="fa fa-chevron-left" *ngIf="isSidebarVisible"></i>
+</button>

@@ -1,0 +1,152 @@
+.custom-table-wrapper
+  .table-header
+    border-bottom: 1px solid rgba(134, 134, 134, 0.62)
+    margin-bottom: 2px
+    padding-bottom: 5px
+
+  .table-wrapper
+    .table
+      tbody
+        border: none
+
+  .table
+    tbody
+      .project-title-row
+        background: #e9ecef
+
+        td
+          padding: 4px 10px
+
+      .task-row
+        td
+          vertical-align: middle
+          padding: 0.3rem 0.3rem 0.3rem 0
+
+          &.task-name
+            max-width: 170px
+            overflow: hidden
+            text-overflow: ellipsis
+            white-space: nowrap
+            padding-right: 15px
+
+          &.action-column
+            text-align: right
+
+          .info-wrapper
+            &:hover
+              cursor: default
+
+          .project-number
+            display: block
+
+          .description
+            max-width: 170px
+            display: block
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+            font-size: 12px
+
+    .header-row
+      th
+        border-top: none
+        padding: 0 0 0.35rem
+
+        &.has-input
+          padding-right: .75rem
+          width: 135px
+
+    .body-row
+      td.data-cell
+        background-color: transparent
+
+        &.has-input
+          padding-right: .75rem
+          width: 135px
+
+
+    .header-container
+      padding-top: 5px
+      padding-bottom: 5px
+      display: flex
+      align-items: center
+      justify-content: center
+      border-radius: 3px
+
+      &.today
+        background-color: rgba(0, 123, 255, 0.24)
+
+      *
+        width: 100%
+        white-space: nowrap
+
+    .weekend
+      background-color: rgba(239, 102, 41, 0.4)
+
+
+  .text-overflow-ellipses
+    text-overflow: ellipsis
+    max-width: 100%
+    white-space: nowrap
+    width: 120px
+    overflow: hidden
+
+  .data-cell
+    padding: 5px 0
+
+    &:hover
+      .fa
+        display: inline-block
+
+    .tooltip-wrapper
+      min-width: 150px
+
+      .tooltip-header
+        border-bottom: 1px solid white
+        margin-bottom: 3px
+        padding-bottom: 2px
+
+      span
+        font-weight: bold
+
+    .column-total, .row-sum
+      font-family: 'Roboto Bold', sans-serif
+      font-size: 1rem
+      padding: 0 12px
+
+  .action-wrapper
+    position: relative
+
+    .disabled-span
+      display: block
+      background: #e9ecef
+      border-radius: .25rem
+      padding: .375rem .75rem
+      border: 1px solid #ced4da
+      width: 100%
+      height: calc(1.5em + .75rem + 2px)
+      font-size: 1rem
+      font-weight: 400
+      line-height: 1.5
+
+    .fa
+      position: absolute
+      display: none
+
+      &.fa-info
+        top: 10px
+
+      &.fa-pencil-alt, &.fa-eye
+        right: 0
+        top: 10px
+
+        &:hover, &:focus
+          color: rgba(0, 123, 255, 0.8)
+          cursor: pointer
+
+  .tooltip-bottom-row
+    border-top: 1px solid lightgray
+
+::ng-deep .cke_bottom
+  .cke_path
+    display: none

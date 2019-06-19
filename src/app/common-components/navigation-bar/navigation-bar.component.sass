@@ -1,0 +1,60 @@
+.app-navbar
+  background-color: #2bbbad !important
+
+  .navbar-brand
+    color: white
+    margin-right: 8px
+
+    .nav-logo
+      width: 35px
+
+  .navbar-nav
+    .nav-item
+      margin-left: 8px
+
+      &.user-initials
+        .nav-link
+          border-radius: 20px !important
+
+          &:hover
+            cursor: pointer
+
+        .dropdown-menu
+          left: auto
+          right: 0
+          padding: 0
+
+          .user-profile
+            padding: 0.5rem 1rem
+            border-bottom: 1px solid rgba(0, 0, 0, .15)
+            white-space: nowrap
+
+            .profile-pic-container
+              padding: 0.2rem
+              display: inline-block
+              margin-right: 4px
+              border-radius: 20px
+              background: #2bbbad
+              width: 30px
+              height: 30px
+              text-align: center
+              color: white
+
+          .dropdown-item
+            &:hover, &:focus
+              cursor: pointer
+              color: #2bbbad
+
+            .fa
+              margin-right: 6px
+
+      .nav-link
+        color: white
+
+        &:hover, &.active
+          color: white
+          background: #ffffff24
+          border-radius: 6px
+
+        span
+          margin-left: 8px

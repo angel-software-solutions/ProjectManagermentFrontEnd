@@ -1,0 +1,31 @@
+<div class="data-grid-view">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <div class="table">
+          <table class="table">
+            <thead>
+            <tr>
+              <ng-container *ngFor="let column of tableHeaderColumns">
+                <th><span>{{column.columnHeading}}</span></th>
+              </ng-container>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let rowItem of tableRenderingData">
+              <ng-container *ngFor="let column of tableHeaderColumns">
+                <td>
+                  {{rowItem[column.dbColumnName]}}
+                  <!-- <ng-container *ngSwitch="column.dataType">
+
+                  </ng-container>-->
+                </td>
+              </ng-container>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
