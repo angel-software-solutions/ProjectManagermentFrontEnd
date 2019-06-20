@@ -1,3 +1,4 @@
+
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { LoginComponent } from "./components/login/login.component";
@@ -14,6 +15,7 @@ import { PageNotFoundComponent } from "./components/page-not-found/page-not-foun
 import { ProjectExpenseComponent } from "./components/project-expense/project-expense.component";
 import { ProjectFormComponent } from "./components/project-form/project-form.component";
 import { EmployeeComponent } from './components/employee/employee.component';
+import { CustomersComponent } from './components/customers/customers.component';
 
 const routes: Routes = [
   {
@@ -67,6 +69,10 @@ const routes: Routes = [
         component: EmployeeComponent,
         pathMatch: 'full',
         path: 'employees'
+      },{
+        component: CustomersComponent,
+        pathMatch: 'full',
+        path: 'customers'
       },
       {
         component: MyProfileComponent,

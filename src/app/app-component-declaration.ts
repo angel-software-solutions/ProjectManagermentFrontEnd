@@ -31,6 +31,7 @@ import { FilterArrayPipe } from "./services/filter-array.pipe";
 import { ProjectExpenseComponent } from "./components/project-expense/project-expense.component";
 import { ProjectFormComponent } from "./components/project-form/project-form.component";
 import { EmployeeComponent } from './components/employee/employee.component';
+import { CustomersComponent } from './components/customers/customers.component';
 
 export const appComponents = [
   MainLayoutComponent,
@@ -56,6 +57,7 @@ export const appComponents = [
   FilterArrayPipe,
   ProjectExpenseComponent,
   EmployeeComponent,
+  CustomersComponent,
   ProjectFormComponent
 ];
 
