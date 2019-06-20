@@ -28,6 +28,7 @@ import {SidebarComponent} from "./components/sidebar/sidebar.component";
 import {SidebarHelperService} from "./services/sidebar-helper.service";
 import {FilterArrayPipe} from "./services/filter-array.pipe";
 import {ProjectExpenseComponent} from "./components/project-expense/project-expense.component";
+import{CustomersComponent} from "./components/customers/customers.component";
 
 
 export const appComponents = [
@@ -53,6 +54,7 @@ export const appComponents = [
   SidebarComponent,
   FilterArrayPipe,
   ProjectExpenseComponent,
+  CustomersComponent,
 ];
 
 
