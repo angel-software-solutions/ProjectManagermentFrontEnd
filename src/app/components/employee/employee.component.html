@@ -1,0 +1,72 @@
+<div class="modal-header">
+  <h5 class="modal-title">Create New Employee</h5>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary">Save</button>
+  <button type="button" class="btn btn-secondary">Cancel</button>
+</div>
+<div class="container">
+    
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label>First Name </label>
+        <input type="text" id="firstName" class="form-control">
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label>Last Name </label>
+        <input type="text" id="LastName" class="form-control">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label>Email Address </label>
+        <input type="email" id="email" class="form-control">
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label>Phone Number </label>
+        <input type="number" id="LastName" class="form-control">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label>Role </label>
+        <app-auto-complete [inline-input]="true"></app-auto-complete>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label>Status </label>
+        <app-auto-complete [inline-input]="true"></app-auto-complete>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label>Joining Date </label>
+        <input type="date" id="joiningDate" class="form-control">
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label>End Date </label>
+        <input type="date" id="endDate" class="form-control">
+      </div>
+    </div>
+  </div>
+  <!-- <div class="modal-footer">
+      <button type="button" tabindex="6" class="btn btn-primary">Delete Employee</button>
+  </div> -->
+</div>
+<div class="btn-group">
+  <button type="button" class="btn btn-primary float-right">Delete Employee</button>
+</div>

@@ -1,10 +1,17 @@
 <div class="projects-page-wrapper">
   <div class="row">
     <div class="col">
-      <h4>{{pageTitle}}</h4>
+      <h4>{{ pageTitle }}</h4>
     </div>
     <div class="col text-right">
-      <button type="button" class="btn btn-primary" ngbTooltip="Create Project"><i class="fa fa-plus"></i></button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        ngbTooltip="Create Project"
+        (click)="onCreateProject()"
+      >
+        <i class="fa fa-plus"></i>
+      </button>
     </div>
   </div>
   <app-common-data-grid [table-columns]="pageColumns"></app-common-data-grid>
