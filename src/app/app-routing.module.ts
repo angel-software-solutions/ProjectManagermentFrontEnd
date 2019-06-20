@@ -12,6 +12,7 @@ import {MyProfileComponent} from "./components/my-profile/my-profile.component";
 import {UserSettingsComponent} from "./components/user-settings/user-settings.component";
 import {PageNotFoundComponent} from "./components/page-not-found/page-not-found.component";
 import {ProjectExpenseComponent} from "./components/project-expense/project-expense.component";
+import { CustomersComponent } from './components/customers/customers.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,11 @@ const routes: Routes = [
         component: UsersComponent,
         pathMatch: 'full',
         path: 'users'
+      },
+      {
+        component: CustomersComponent,
+        pathMatch: 'full',
+        path: 'customers'
       },
       {
         component: MyProfileComponent,
