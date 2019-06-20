@@ -1,9 +1,11 @@
 <div class="project-form-wrapper">
   <form (submit)="onFormSubmit()">
     <div class="row">
-      <div class="col form-group"  style="text-align: -webkit-right;margin-top: 16px">
-          <p-button label="Cancel" styleClass="form-control"></p-button>
-        <p-button label="Save"></p-button>
+      <div class="col form-group text-right">
+        <button class="btn btn-primary">Cancel</button>
+        <button type="button" (click)="onFormSubmit()" class="btn btn-primary">
+          Save
+        </button>
       </div>
     </div>
     <div class="row">
@@ -14,14 +16,25 @@
               <div class="col">
                 <div class="form-group">
                   <label for="number">Number</label>
-                  <input type="email" class="form-control" AllowOnlyNumbers id="number" aria-describedby="emailHelp"
-                         placeholder="Enter number">
+                  <input
+                    type="email"
+                    class="form-control"
+                    AllowOnlyNumbers
+                    id="number"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter number"
+                  />
                 </div>
               </div>
               <div class="col">
                 <div class="form-group">
                   <label>Name</label>
-                  <input type="text" class="form-control" id="name" placeholder="Name">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    placeholder="Name"
+                  />
                 </div>
               </div>
             </div>
@@ -29,25 +42,41 @@
               <div class="col">
                 <div class="form-group">
                   <label>Type</label>
-                  <p-dropdown styleClass="form-control"></p-dropdown>
+                  <p-dropdown
+                  name="projectTypeDropDown"
+                    [options]="pts"
+                    [(ngModel)]="spts"
+                    optionLabel="Code"
+                    styleClass="form-control"
+                  ></p-dropdown>
                 </div>
               </div>
               <div class="col">
                 <div class="form-group">
                   <label for="status">Status</label>
-                  <p-dropdown styleClass="form-control"></p-dropdown>
+                  <p-dropdown
+                  name="projectStatusDropDown"
+                    [options]="psts"
+                    [(ngModel)]="spst"
+                    optionLabel="Code"
+                    styleClass="form-control"
+                  ></p-dropdown>
                 </div>
-
               </div>
             </div>
-
           </p-accordionTab>
           <p-accordionTab header="CUSTOMER" [selected]="true">
             <div class="row">
               <div class="col">
                 <div class="form-group">
                   <label>Name</label>
-                  <p-dropdown styleClass="form-control"></p-dropdown>
+                  <p-dropdown
+                    name="customerdropdown"
+                    [options]="customers"
+                    [(ngModel)]="selectedCustomer"
+                    optionLabel="ClientName"
+                    styleClass="form-control"
+                  ></p-dropdown>
                 </div>
               </div>
               <div class="col">
@@ -55,7 +84,6 @@
                   <label for="projectManager">Project Manager</label>
                   <p-dropdown styleClass="form-control"></p-dropdown>
                 </div>
-
               </div>
             </div>
             <div class="row">
@@ -78,8 +106,6 @@
                     </div>
                   </div>
                 </div>
-
-
               </div>
             </div>
           </p-accordionTab>
@@ -127,14 +153,13 @@
                 <div class="form-group">
                   <label> </label>
 
-                  <input type="text" class="form-control"/>
-
+                  <input type="text" class="form-control" />
                 </div>
               </div>
               <div class="col-3">
                 <div class="form-group">
                   <label> </label>
-                  <input type="text" AllowOnlyNumbers class="form-control"/>
+                  <input type="text" AllowOnlyNumbers class="form-control" />
                 </div>
               </div>
             </div>
@@ -165,14 +190,13 @@
                 <div class="form-group">
                   <label> </label>
 
-                  <input type="text" class="form-control"/>
-
+                  <input type="text" class="form-control" />
                 </div>
               </div>
               <div class="col-3">
                 <div class="form-group">
                   <label> </label>
-                  <input type="text" AllowOnlyNumbers class="form-control"/>
+                  <input type="text" AllowOnlyNumbers class="form-control" />
                 </div>
               </div>
             </div>
@@ -181,7 +205,7 @@
               <div class="col-5">
                 <div class="form-group">
                   <label>Purchase Order Number</label>
-                  <input type="text" AllowOnlyNumbers class="form-control"/>
+                  <input type="text" AllowOnlyNumbers class="form-control" />
                 </div>
               </div>
             </div>
@@ -211,7 +235,6 @@
               <div class="col">
                 <div class="form-group">
                   <label></label>
-
                 </div>
               </div>
             </div>
@@ -220,35 +243,33 @@
             <div class="row">
               <div class="col">
                 <div class="form-group">
-                  <input type="text" class="form-control"/>
+                  <input type="text" class="form-control" />
                 </div>
               </div>
               <div class="col">
                 <div class="form-group">
-                  <input type="text" class="form-control"/>
+                  <input type="text" class="form-control" />
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col">
-                <p-button label="Add Tags"></p-button>
-
+                <button class="btn btn-primary">Add Tags</button>
               </div>
             </div>
-
           </p-accordionTab>
           <p-accordionTab header="TIMESHEET" [selected]="true">
             <div class="row">
               <div class="col">
                 <div class="form-group">
                   <label>Overtime (OT) Multiplier</label>
-                  <input type="text" AllowOnlyNumbers class="form-control"/>
+                  <input type="text" AllowOnlyNumbers class="form-control" />
                 </div>
               </div>
               <div class="col">
                 <div class="form-group">
                   <label>Double Time (DT) Multiplier</label>
-                  <input type="text" AllowOnlyNumbers class="form-control"/>
+                  <input type="text" AllowOnlyNumbers class="form-control" />
                 </div>
               </div>
             </div>
@@ -257,8 +278,8 @@
       </div>
     </div>
     <div class="row">
-      <div class="col form-group"  style="text-align: -webkit-right;margin-top: 16px">
-        <p-button label="Delete" styleClass="form-control"></p-button>
+      <div class="col form-group text-right">
+        <button class="btn btn-primary">Delete</button>
       </div>
     </div>
     <!--<div class="form-group form-check">
