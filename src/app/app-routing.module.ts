@@ -12,6 +12,7 @@ import {MyProfileComponent} from "./components/my-profile/my-profile.component";
 import {UserSettingsComponent} from "./components/user-settings/user-settings.component";
 import {PageNotFoundComponent} from "./components/page-not-found/page-not-found.component";
 import {ProjectExpenseComponent} from "./components/project-expense/project-expense.component";
+import { EmployeeComponent } from './components/employee/employee.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,11 @@ const routes: Routes = [
         component: UsersComponent,
         pathMatch: 'full',
         path: 'users'
+      },
+      {
+        component: EmployeeComponent,
+        pathMatch: 'full',
+        path: 'employees'
       },
       {
         component: MyProfileComponent,
