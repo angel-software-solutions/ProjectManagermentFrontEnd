@@ -34,6 +34,12 @@ export class NavigationBarHelperService {
         route: '/users',
         iconClass: 'fa-users',
         children: null,
+      },{
+        displayLabel: 'Customer',
+        id: 'Customers',
+        route: '/customers',
+        iconClass: 'fa-users',
+        children: null,
       }
     ];
   }
