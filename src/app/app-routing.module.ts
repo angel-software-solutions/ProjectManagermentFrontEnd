@@ -14,6 +14,7 @@ import { UserSettingsComponent } from "./components/user-settings/user-settings.
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
 import { ProjectExpenseComponent } from "./components/project-expense/project-expense.component";
 import { ProjectFormComponent } from "./components/project-form/project-form.component";
+import { EmployeeComponent } from './components/employee/employee.component';
 import { CustomersComponent } from './components/customers/customers.component';
 
 const routes: Routes = [
@@ -65,6 +66,10 @@ const routes: Routes = [
         path: "users"
       },
       {
+        component: EmployeeComponent,
+        pathMatch: 'full',
+        path: 'employees'
+      },{
         component: CustomersComponent,
         pathMatch: 'full',
         path: 'customers'
