@@ -76,13 +76,19 @@
                     [(ngModel)]="selectedCustomer"
                     optionLabel="ClientName"
                     styleClass="form-control"
+                    (onChange)="onCustomerChange($event)"
                   ></p-dropdown>
                 </div>
               </div>
               <div class="col">
                 <div class="form-group">
                   <label for="projectManager">Project Manager</label>
-                  <p-dropdown styleClass="form-control"></p-dropdown>
+                  <p-dropdown  name="projectmanagerdropdown"
+                  [options]="customerContacts"
+                  [(ngModel)]="selectedCustomerContact"
+                  optionLabel="FullName"
+                  styleClass="form-control"
+                  ></p-dropdown>
                 </div>
               </div>
             </div>
@@ -90,7 +96,8 @@
               <div class="col">
                 <div class="form-group">
                   <label>Billing Contact</label>
-                  <p-dropdown styleClass="form-control"></p-dropdown>
+                  <p-dropdown  [options]="customerContacts" [(ngModel)]="selectedBillingContact"
+                  optionLabel="FullName" styleClass="form-control"></p-dropdown>
                 </div>
               </div>
               <div class="col">
@@ -114,7 +121,8 @@
               <div class="col">
                 <div class="form-group">
                   <label for="projectManager">Project Manager</label>
-                  <p-dropdown styleClass="form-control"></p-dropdown>
+                  <p-dropdown [options]="employees"  [(ngModel)]="selectedEmployee"
+                  optionLabel="FullName"  styleClass="form-control"></p-dropdown>
                 </div>
               </div>
 
