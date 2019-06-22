@@ -31,6 +31,7 @@ import { ProjectExpenseComponent } from "./components/project-expense/project-ex
 import { ProjectFormComponent } from "./components/project-form/project-form.component";
 import { EmployeeComponent } from "./components/employee/employee.component";
 import { CustomersComponent } from "./components/customers/customers.component";
+import { ImageUploadComponent } from "./common-components/image-upload/image-upload.component";
 import { CustomerService } from "./services/customer.service";
 
 export const appComponents = [
@@ -58,7 +59,8 @@ export const appComponents = [
   ProjectExpenseComponent,
   EmployeeComponent,
   CustomersComponent,
-  ProjectFormComponent
+  ProjectFormComponent,
+  ImageUploadComponent
 ];
 
 export const appServices = [

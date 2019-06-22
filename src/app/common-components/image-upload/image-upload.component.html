@@ -1,0 +1,11 @@
+<span style="color:red;" *ngIf="message">{{ message }}</span>
+
+<div
+  class="image-container"
+  [ngStyle]="{ 'background-image': 'url(' + imgURL + ')' }"
+></div>
+<!-- <img [src]="imgURL" height="200" *ngIf="imgURL" /> -->
+
+<div class="input-wrapper">
+  <input #file type="file" accept="image/*" (change)="preview(file.files)" />
+</div>

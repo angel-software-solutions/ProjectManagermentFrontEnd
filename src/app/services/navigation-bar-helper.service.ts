@@ -39,7 +39,7 @@ export class NavigationBarHelperService {
         displayLabel: 'Customer',
         id: 'Customers',
         route: '/customers',
-        iconClass: 'fa-users',
+        iconClass: 'fa-user-tie',
         children: null,
       }, 
       {
