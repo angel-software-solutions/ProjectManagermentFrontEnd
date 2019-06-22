@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core";
-import { CustomerModel } from "../models/customer-model";
 import { AppRestService } from "./app-rest.service";
-import { promise, Key } from "protractor";
-import { keyframes } from "@angular/animations";
+import { CustomerModel } from "../models/customer-model";
 
 @Injectable({
   providedIn: "root"

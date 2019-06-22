@@ -32,6 +32,7 @@ import { ProjectFormComponent } from "./components/project-form/project-form.com
 import { EmployeeComponent } from "./components/employee/employee.component";
 import { CustomersComponent } from "./components/customers/customers.component";
 import { ImageUploadComponent } from "./common-components/image-upload/image-upload.component";
+import { CustomerService } from "./services/customer.service";
 
 export const appComponents = [
   MainLayoutComponent,
@@ -71,7 +72,8 @@ export const appServices = [
   AutoCompleteService,
   AllowOnlyNumbersDirective,
   NavigationBarHelperService,
-  SidebarHelperService
+  SidebarHelperService,
+  CustomerService
 ];
 
 export const appEntryComponents = [ConfirmModalDialogComponent];
