@@ -7,4 +7,5 @@ export class CustomerModel {
   StateProvince: string;
   ZipPostalCode: string;
   Country: string;
+  ProfilePicture: File;
 }

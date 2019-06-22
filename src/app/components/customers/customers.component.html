@@ -1,145 +1,145 @@
 <div class="customer-wrapper">
-  <div class="from-header">
-    <div class="row">
-      <div class="col-md-6">
+  <form (submit)="addCustomerEntry()">
+    <div class="from-header">
+      <div class="row">
+        <div class="col-md-6">
           <h5>Customer</h5>
-      </div>
-      <div class="col-md-6">
-        <div class="text-right">
-          <button type="button"  class="btn btn-primary">Save</button>
-          <button type="button"  class="btn btn-secondary">Cancel</button>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="from-body">
-    <div class="row">
-      <h6>CUSTOMER</h6>
-    </div>
-    <div class="row">
-      <div class="col">
-        <div class="form-group">
-            <label>Name</label>
-            <input type="text" name="" class="form-control">
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <h6>ADDRESS</h6>
-    </div>
-    <div class="row">
-      <div class="col">
-        <div class="form-group">
-          <label>Street Address</label>
-          <input type="text" name="" class="form-control">
-        </div>
-      </div>
-      <div class="col">
-        <div class="form-group">
-          <label>City</label>
-          <input type="text" name="" class="form-control">
-        </div>
-       </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <div class="form-group">
-          <label>State/provivce</label>
-          <input type="text" name="" class="form-control">
-        </div>
-      </div>
-      <div class="col">
-        <div class="form-group">
-          <label>Zip/Postal Code</label>
-          <input type="text" name="" class="form-control">
-        </div>
-      </div>
-    </div>
-    <div class="row">
-                <div class="col">
-                  <div class="form-group">
-                    <label>Country</label>
-                    <input type="text" name="" class="form-control">
-                  </div>
-                </div>
+        <div class="col-md-6">
+          <div class="text-right">
+            <button type="submit" class="btn btn-primary">
+              Save
+            </button>
+            <button type="button" class="btn btn-secondary">Cancel</button>
           </div>
-          <div class="row"><h6>PAYMENT</h6></div>
-          <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label>Payment Terms</label>
-                  <input type="text" name="" class="form-control">
-                </div>
-              </div>
-          </div>
-          <div class="row"><h6>CONTACTS</h6></div>
-          <div>Grid</div>  
         </div>
-
-</div>
-      <!-- <div class="table-wrapper">
-        <div class="from-body">
-          <div class="row"><h6>CUSTOMER</h6></div>
+      </div>
+    </div>
+    <div class="from-body">
+      <p-accordion [multiple]="true">
+        <p-accordionTab header="CUSTOMER" [selected]="true">
           <div class="row">
             <div class="col">
+              <app-image-upload
+                (on-image-uploaded)="onImageUploadedEventListener($event)"
+              ></app-image-upload>
+            </div>
+            <div class="col">
               <div class="form-group">
-                  <label>Name</label>
-                  <input type="text" name="" class="form-control">
+                <label>Name</label>
+                <input
+                  type="text"
+                  name="ClientName"
+                  class="form-control"
+                  [(ngModel)]="newModal.ClientName"
+                />
               </div>
             </div>
           </div>
-          <div class="row"><h6>ADDRESS</h6></div>
+        </p-accordionTab>
+
+        <p-accordionTab header="ADDRESS" [selected]="true">
           <div class="row">
             <div class="col">
               <div class="form-group">
                 <label>Street Address</label>
-                <input type="text" name="" class="form-control">
+                <input
+                  type="text"
+                  name="StreetAddress"
+                  class="form-control"
+                  [(ngModel)]="newModal.StreetAddress"
+                />
               </div>
             </div>
             <div class="col">
-                <div class="form-group">
-                  <label>City</label>
-                  <input type="text" name="" class="form-control">
-                </div>
+              <div class="form-group">
+                <label>City</label>
+                <input
+                  type="text"
+                  name="City"
+                  class="form-control"
+                  [(ngModel)]="newModal.City"
+                />
               </div>
+            </div>
           </div>
           <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label>State/provivce</label>
-                  <input type="text" name="" class="form-control">
-                </div>
+            <div class="col">
+              <div class="form-group">
+                <label>State/provivce</label>
+                <input
+                  type="text"
+                  name="StateProvince"
+                  class="form-control"
+                  [(ngModel)]="newModal.StateProvince"
+                />
               </div>
-              <div class="col">
-                  <div class="form-group">
-                    <label>Zip/Postal Code</label>
-                    <input type="text" name="" class="form-control">
-                  </div>
-                </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>Zip/Postal Code</label>
+                <input
+                  type="text"
+                  name="ZipPostalCode"
+                  class="form-control"
+                  [(ngModel)]="newModal.ZipPostalCode"
+                />
+              </div>
+            </div>
           </div>
           <div class="row">
-                <div class="col">
-                  <div class="form-group">
-                    <label>Country</label>
-                    <input type="text" name="" class="form-control">
-                  </div>
-                </div>
-          </div>
-          <div class="row"><h6>PAYMENT</h6></div>
-          <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label>Payment Terms</label>
-                  <input type="text" name="" class="form-control">
-                </div>
+            <div class="col">
+              <div class="form-group">
+                <label>Country</label>
+                <input
+                  type="text"
+                  name="Country"
+                  class="form-control"
+                  [(ngModel)]="newModal.Country"
+                />
               </div>
+            </div>
           </div>
-          <div class="row"><h6>CONTACTS</h6></div>
-          <div>Grid</div>  
-        </div>
-    
-  </div> -->
-  <!-- <div class="modal-footer">
-      <button type="button" class="btn btn-primary">Delete</button>
-    </div> -->
+        </p-accordionTab>
 
+        <p-accordionTab header="PAYMENT" [selected]="true">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label>Payment Terms</label>
+                <input
+                  type="text"
+                  name="PaymentTerms"
+                  class="form-control"
+                  [(ngModel)]="newModal.PaymentTerms"
+                />
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
+
+        <p-accordionTab header="CONTACTS" [selected]="true">
+          <div class="row">
+            <div class="col">
+              <div class="uiGrd"></div>
+            </div>
+          </div>
+        </p-accordionTab>
+        <!-- <div>Grid</div>   -->
+      </p-accordion>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="text-right">
+          <button type="button" class="btn btn-primary">Delete</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- <div class="ui-g-2">FIRST NAME</div>
+<div class="ui-g-2">LAST NAME</div>
+<div class="ui-g-2">EMAIL ADDRESS</div>
+<div class="ui-g-2">OFFICE NUMBER</div>
+<div class="ui-g-2">CELL PHONE NUMBER</div> -->

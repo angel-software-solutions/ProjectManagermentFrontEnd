@@ -1,4 +1,3 @@
-
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./components/login/login.component";
 import { NavigationBarComponent } from "./common-components/navigation-bar/navigation-bar.component";
@@ -30,8 +29,9 @@ import { SidebarHelperService } from "./services/sidebar-helper.service";
 import { FilterArrayPipe } from "./services/filter-array.pipe";
 import { ProjectExpenseComponent } from "./components/project-expense/project-expense.component";
 import { ProjectFormComponent } from "./components/project-form/project-form.component";
-import { EmployeeComponent } from './components/employee/employee.component';
-import { CustomersComponent } from './components/customers/customers.component';
+import { EmployeeComponent } from "./components/employee/employee.component";
+import { CustomersComponent } from "./components/customers/customers.component";
+import { ImageUploadComponent } from "./common-components/image-upload/image-upload.component";
 
 export const appComponents = [
   MainLayoutComponent,
@@ -58,7 +58,8 @@ export const appComponents = [
   ProjectExpenseComponent,
   EmployeeComponent,
   CustomersComponent,
-  ProjectFormComponent
+  ProjectFormComponent,
+  ImageUploadComponent
 ];
 
 export const appServices = [
