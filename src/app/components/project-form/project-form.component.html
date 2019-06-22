@@ -28,12 +28,12 @@
               </div>
               <div class="col">
                 <div class="form-group">
-                  <label>Name</label>
+                  <label>Description</label>
                   <input
                     type="text"
                     class="form-control"
                     id="name"
-                    placeholder="Name"
+                    placeholder="Click here to enter description"
                   />
                 </div>
               </div>
@@ -43,7 +43,7 @@
                 <div class="form-group">
                   <label>Type</label>
                   <p-dropdown
-                  name="projectTypeDropDown"
+                    name="projectTypeDropDown"
                     [options]="pts"
                     [(ngModel)]="spts"
                     optionLabel="Code"
@@ -55,7 +55,7 @@
                 <div class="form-group">
                   <label for="status">Status</label>
                   <p-dropdown
-                  name="projectStatusDropDown"
+                    name="projectStatusDropDown"
                     [options]="psts"
                     [(ngModel)]="spst"
                     optionLabel="Code"
@@ -83,11 +83,12 @@
               <div class="col">
                 <div class="form-group">
                   <label for="projectManager">Project Manager</label>
-                  <p-dropdown  name="projectmanagerdropdown"
-                  [options]="customerContacts"
-                  [(ngModel)]="selectedCustomerContact"
-                  optionLabel="FullName"
-                  styleClass="form-control"
+                  <p-dropdown
+                    name="projectmanagerdropdown"
+                    [options]="customerContacts"
+                    [(ngModel)]="selectedCustomerContact"
+                    optionLabel="FullName"
+                    styleClass="form-control"
                   ></p-dropdown>
                 </div>
               </div>
@@ -96,8 +97,13 @@
               <div class="col">
                 <div class="form-group">
                   <label>Billing Contact</label>
-                  <p-dropdown  [options]="customerContacts" [(ngModel)]="selectedBillingContact"
-                  optionLabel="FullName" styleClass="form-control"></p-dropdown>
+                  <p-dropdown
+                    name="billingContactDropdown"
+                    [options]="customerContacts"
+                    [(ngModel)]="selectedBillingContact"
+                    optionLabel="FullName"
+                    styleClass="form-control"
+                  ></p-dropdown>
                 </div>
               </div>
               <div class="col">
@@ -121,15 +127,24 @@
               <div class="col">
                 <div class="form-group">
                   <label for="projectManager">Project Manager</label>
-                  <p-dropdown [options]="employees"  [(ngModel)]="selectedEmployee"
-                  optionLabel="FullName"  styleClass="form-control"></p-dropdown>
+                  <p-dropdown
+                    name="employeeDropdown"
+                    [options]="employees"
+                    [(ngModel)]="selectedEmployee"
+                    optionLabel="FullName"
+                    styleClass="form-control"
+                  ></p-dropdown>
                 </div>
               </div>
 
               <div class="col">
                 <div class="form-group">
                   <label>Team Lead</label>
-                  <p-dropdown styleClass="form-control"></p-dropdown>
+                  <p-dropdown   name="teamleadDropdown"
+                  [options]="employees"
+                  [(ngModel)]="selectedTeamLead"
+                  optionLabel="FullName"
+                  styleClass="form-control"></p-dropdown>
                 </div>
               </div>
             </div>
@@ -139,7 +154,11 @@
               <div class="col">
                 <div class="form-group">
                   <label>Currency</label>
-                  <p-dropdown styleClass="form-control"></p-dropdown>
+                  <p-dropdown name="currencyDropdown"
+                  [options]="currencies"
+                  [(ngModel)]="selectedCurrency"
+                  optionLabel="Name"
+                  styleClass="form-control"></p-dropdown>
                 </div>
               </div>
 
@@ -176,7 +195,11 @@
               <div class="col">
                 <div class="form-group">
                   <label>Default Budget View</label>
-                  <p-dropdown styleClass="form-control"></p-dropdown>
+                  <p-dropdown name="budgetViewDropdown"
+                  [options]="budgetViews"
+                  [(ngModel)]="selectedBudgetView"
+                  optionLabel="Lable"
+                  styleClass="form-control"></p-dropdown>
                 </div>
               </div>
 
@@ -223,7 +246,11 @@
               <div class="col">
                 <div class="form-group">
                   <label>Industry</label>
-                  <p-dropdown styleClass="form-control"></p-dropdown>
+                  <p-dropdown name="industryDropdown"
+                  [options]="industries"
+                  [(ngModel)]="selectedIndustry"
+                  optionLabel="Name"
+                  styleClass="form-control"></p-dropdown>
                 </div>
               </div>
               <div class="col">
@@ -237,7 +264,12 @@
               <div class="col">
                 <div class="form-group">
                   <label>Scope</label>
-                  <p-dropdown styleClass="form-control"></p-dropdown>
+                  <p-dropdown 
+                  name="scopeDropdown"
+                  [options]="scopes"
+                  [(ngModel)]="selectedScope"
+                  optionLabel="Name"
+                  styleClass="form-control"></p-dropdown>
                 </div>
               </div>
               <div class="col">
@@ -252,19 +284,18 @@
               <div class="col">
                 <div class="form-group">
                   <input type="text" class="form-control" />
+
+                <button class="btn btn-primary margin-top remove-margin-left">Add Tags</button>
                 </div>
               </div>
               <div class="col">
                 <div class="form-group">
                   <input type="text" class="form-control" />
+                  <tag-input [ngModel]="itemsAsObjects" [identifyBy]="'id'" [displayBy]="'name'"></tag-input>
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col">
-                <button class="btn btn-primary">Add Tags</button>
-              </div>
-            </div>
+           
           </p-accordionTab>
           <p-accordionTab header="TIMESHEET" [selected]="true">
             <div class="row">
