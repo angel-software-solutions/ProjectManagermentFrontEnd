@@ -9,6 +9,17 @@ import { TimesheetHelperService } from "src/app/services/timesheet-helper.servic
 import { CustomercontactService } from "src/app/services/customercontact.service";
 import { Employee } from "src/app/models/employee.model";
 import { EmployeeService } from "src/app/services/employee.service";
+import { EnumUtility } from "src/app/Helpers/EnumUtility";
+import {
+  InvoiceFrequency,
+  InvoiceFrequencies
+} from "src/app/Enums/InvoiceFrequency";
+import { Currency } from "src/app/models/currency.model";
+import { CurrencyService } from "src/app/services/currency.service";
+import { Industry } from "src/app/models/industry.model";
+import { Scope } from "src/app/models/scope.model";
+import { ScopeService } from "src/app/services/scope.service";
+import { IndustryService } from "src/app/services/industry.service";
 
 @Component({
   selector: "app-project-form",
@@ -16,6 +27,7 @@ import { EmployeeService } from "src/app/services/employee.service";
   styleUrls: ["./project-form.component.sass"]
 })
 export class ProjectFormComponent implements OnInit {
+  /* #region  Property Declaration */
   spts: ProjectType;
   pts: Array<ProjectType>;
   spst: Projectstatus;
@@ -26,22 +38,61 @@ export class ProjectFormComponent implements OnInit {
   selectedBillingContact: CustomerContact;
   customerContacts: Array<CustomerContact>;
   selectedEmployee: Employee;
+  selectedTeamLead: Employee;
   employees: Array<Employee>;
+  budgetViews: any;
+  selectedBudgetView: any;
+  selectedCurrency: Currency;
+  currencies: Array<Currency>;
+
+  selectedIndustry: Industry;
+  industries: Array<Industry>;
+
+  selectedScope: Scope;
+  scopes: Array<Scope>;
+  itemsAsObjects = [
+    { value: 0, display: "Angular" },
+    { value: 1, display: "React" }
+  ];
+  /* #endregion */
 
   constructor(
     private ps: ProjectsService,
     private customerService: CustomerService,
     private customerContactService: CustomercontactService,
-    private employeeService: EmployeeService
-  ) {
+    private employeeService: EmployeeService,
+    private currencyService: CurrencyService,
+    private scopeService: ScopeService,
+    private industryService: IndustryService
+  ) {}
+
+  ngOnInit() {
     this.selectedCustomer = new CustomerModel();
     this.onLoadProjectTypes();
     this.onLoadProjectStatues();
     this.onLoadCustomers();
     this.onLoadEmployees();
+    this.onLoadCurrencies();
+    this.onLoadScopes();
+    this.onLoadIndustries();
+    this.budgetViews = EnumUtility.GetList(InvoiceFrequency);
+  }
+  onLoadIndustries() {
+    this.industryService.getIndustriesForDropDown().then(res => {
+      this.industries = res;
+    });
+  }
+  onLoadScopes() {
+    this.scopeService.getScopesForDropDown().then(res => {
+      this.scopes = res;
+    });
+  }
+  onLoadCurrencies() {
+    this.currencyService
+      .getCurrencyForDropDown()
+      .then(res => (this.currencies = res));
   }
 
-  ngOnInit() {}
   onLoadProjectTypes = () => {
     this.ps.getProjectTypes().then(res => (this.pts = res));
   };
@@ -51,7 +102,10 @@ export class ProjectFormComponent implements OnInit {
   };
 
   onLoadCustomers = () => {
-    this.customerService.getAllCustomers().then(res => (this.customers = res));
+    this.customerService.getAllCustomers().then(res => {
+      this.customers = res;
+      this.selectedCustomer = res[1];
+    });
   };
 
   onLoadCustomerContacts() {
@@ -73,6 +127,6 @@ export class ProjectFormComponent implements OnInit {
     });
   }
   onFormSubmit() {
-    console.log(this.selectedCustomer.ClientName);
+    console.log(InvoiceFrequency[this.selectedBudgetView.Value]);
   }
 }
