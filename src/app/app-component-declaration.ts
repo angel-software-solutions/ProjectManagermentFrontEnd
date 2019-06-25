@@ -74,8 +74,7 @@ export const appServices = [
   AutoCompleteService,
   AllowOnlyNumbersDirective,
   NavigationBarHelperService,
-  SidebarHelperService,
-  CustomerService
+  SidebarHelperService
 ];
 
 export const appEntryComponents = [ConfirmModalDialogComponent];

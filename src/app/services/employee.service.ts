@@ -1,14 +1,19 @@
 import { Injectable } from "@angular/core";
 import { AppRestService } from "./app-rest.service";
 import { Employee } from "../models/employee.model";
+import { EmployeesModel } from "../models/employee";
 
 @Injectable({
   providedIn: "root"
 })
 export class EmployeeService {
   private apiUrl: string = "api/employee/";
+  private employeeAPIEndPoint: string = "/api/employee/";
 
-  constructor(private httpService: AppRestService) {}
+  constructor(
+    private httpService: AppRestService,
+    private appRestService: AppRestService
+  ) {}
 
   public getEmployeesForDropDown(): Promise<Array<Employee>> {
     return new Promise((onRequestAccepted, onRequestRejected) => {
@@ -27,6 +32,18 @@ export class EmployeeService {
         },
         error => {
           onRequestRejected(null);
+        }
+      );
+    });
+  }
+  public createEmployee(model: EmployeesModel) {
+    return new Promise((onResolve, onReject) => {
+      this.appRestService.doPost(this.employeeAPIEndPoint, model).subscribe(
+        success => {
+          onResolve(success);
+        },
+        error => {
+          onReject(error);
         }
       );
     });

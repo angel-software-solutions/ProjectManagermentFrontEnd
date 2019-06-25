@@ -16,10 +16,9 @@ import { AccordionModule } from "primeng/accordion";
 import { DropdownModule } from "primeng/dropdown";
 import { CheckboxModule } from "primeng/checkbox";
 import { ButtonModule } from "primeng/button";
+import { CalendarModule } from "primeng/calendar";
 
-import { TagInputModule } from "ngx-chips";
-
-import { CalendarModule, DateAdapter } from "angular-calendar";
+// import { CalendarModule, DateAdapter } from "angular-calendar";
 import { adapterFactory } from "angular-calendar/date-adapters/date-fns";
 import { DragAndDropModule } from "angular-draggable-droppable";
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from "ngx-ui-loader";
@@ -42,11 +41,10 @@ import { AppComponent } from "./app.component";
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    TagInputModule,
-    CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory
-    }),
+    // CalendarModule.forRoot({
+    //   provide: DateAdapter,
+    //   useFactory: adapterFactory
+    // }),
     DragAndDropModule.forRoot(),
     NgbModalModule.forRoot(),
     NgbTooltipModule.forRoot(),
@@ -70,7 +68,8 @@ import { AppComponent } from "./app.component";
     AccordionModule,
     DropdownModule,
     CheckboxModule,
-    ButtonModule
+    ButtonModule,
+    CalendarModule
     // MenuItem,
   ],
   providers: appServices,
