@@ -20,6 +20,12 @@ import { Industry } from "src/app/models/industry.model";
 import { Scope } from "src/app/models/scope.model";
 import { ScopeService } from "src/app/services/scope.service";
 import { IndustryService } from "src/app/services/industry.service";
+import { ProjecttagService } from "src/app/services/projecttag.service";
+import { ProjectTag } from "src/app/models/project-tag.model";
+import { ProjectModel } from "src/app/models/project-model";
+import { GeographyService } from "src/app/services/geography.service";
+import { Geography } from "src/app/models/geography.model";
+import { TreeviewItem, TreeviewConfig } from "ngx-treeview";
 
 @Component({
   selector: "app-project-form",
@@ -47,13 +53,14 @@ export class ProjectFormComponent implements OnInit {
 
   selectedIndustry: Industry;
   industries: Array<Industry>;
-
+  isProjectSave: boolean = true;
   selectedScope: Scope;
   scopes: Array<Scope>;
-  itemsAsObjects = [
-    { value: 0, display: "Angular" },
-    { value: 1, display: "React" }
-  ];
+
+  projectTags: Array<ProjectTag> = [];
+  selectedProject: ProjectModel;
+  geographies: TreeviewItem[] = [];
+
   /* #endregion */
 
   constructor(
@@ -63,10 +70,14 @@ export class ProjectFormComponent implements OnInit {
     private employeeService: EmployeeService,
     private currencyService: CurrencyService,
     private scopeService: ScopeService,
-    private industryService: IndustryService
+    private industryService: IndustryService,
+    private projectTagService: ProjecttagService,
+    private geographyService: GeographyService
   ) {}
 
   ngOnInit() {
+    this.selectedProject = new ProjectModel();
+    this.selectedProject.TypeGuid = "57957D13-88FC-40E3-8B81-EBED3585323E";
     this.selectedCustomer = new CustomerModel();
     this.onLoadProjectTypes();
     this.onLoadProjectStatues();
@@ -75,8 +86,47 @@ export class ProjectFormComponent implements OnInit {
     this.onLoadCurrencies();
     this.onLoadScopes();
     this.onLoadIndustries();
+    this.onLoadProjectTags();
+    this.onLoadGeographies();
+
     this.budgetViews = EnumUtility.GetList(InvoiceFrequency);
   }
+
+  dropdownEnabled = true;
+  items: TreeviewItem[];
+  values: string[];
+  config = TreeviewConfig.create({
+    hasAllCheckBox: true,
+    hasFilter: true,
+    hasCollapseExpand: true,
+    decoupleChildFromParent: false,
+    maxHeight: 250
+  });
+
+  /* #region  DataLoad methods */
+  onLoadGeographies() {
+    this.geographyService.getGeographiesTreeView().then(res => {
+      this.geographies.push(
+        new TreeviewItem({
+          text: res.Root.text,
+          value: res.Root.value,
+          children: res.Root.children
+        })
+      );
+    });
+  }
+  onLoadProjectTags() {
+    this.projectTagService
+      .getAllProjectTagByProject("B18FB12D-D91F-40D5-A4A4-384E608630B2")
+      .then(res => {
+        this.projectTags = res;
+        let defaultTag = new ProjectTag();
+        defaultTag.Tag = "Tag1";
+        defaultTag.Guid = "B18FB12D-D91F-40D5-A4A4-384E608630B2";
+        this.projectTags.push(defaultTag);
+      });
+  }
+  onFilterChange(value: string) {}
   onLoadIndustries() {
     this.industryService.getIndustriesForDropDown().then(res => {
       this.industries = res;
@@ -126,7 +176,14 @@ export class ProjectFormComponent implements OnInit {
       this.employees = res;
     });
   }
+
+  onItemRemoved(event) {}
+
+  onItemAdded(event) {}
+
   onFormSubmit() {
-    console.log(InvoiceFrequency[this.selectedBudgetView.Value]);
+    console.log(this.selectedProject);
+    //console.log(InvoiceFrequency[this.selectedBudgetView.Value]);
   }
+  /* #endregion */
 }

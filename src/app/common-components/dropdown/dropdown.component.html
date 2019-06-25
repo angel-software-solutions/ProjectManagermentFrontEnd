@@ -1,0 +1,9 @@
+<p-dropdown
+  [name]="inputName"
+  [options]="itemSource"
+  [(ngModel)]="valueModel"
+  [optionLabel]="displayMember"
+  (ngModelChange)="valueModelChange.emit(valueModel)"
+  (onChange)="onSelectionChange($event)"
+  styleClass="form-control"
+></p-dropdown>

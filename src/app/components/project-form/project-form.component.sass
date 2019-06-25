@@ -8,7 +8,19 @@
     .margin-top
         margin-top: 5px
     .remove-margin-left
-        margin-left: 0px    
+        margin-left: 0px 
+    .dropdown-treeview-container
+        ::ng-deep 
+            .dropdown-menu.show
+                min-width: 100%
+            .btn.dropdown-toggle.btn-outline-secondary
+                color: #6c757d
+                background-color: #fff
+                border-color: #6c757d
+                &:focus,&:hover,&.active
+                    outline: none
+                    box-shadow: none
+        
 
     
 

@@ -23,6 +23,7 @@ import { CalendarModule, DateAdapter } from "angular-calendar";
 import { adapterFactory } from "angular-calendar/date-adapters/date-fns";
 import { DragAndDropModule } from "angular-draggable-droppable";
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from "ngx-ui-loader";
+import { TreeviewModule } from "ngx-treeview";
 
 import {
   appComponents,
@@ -49,6 +50,7 @@ import { AppComponent } from "./app.component";
     DragAndDropModule.forRoot(),
     NgbModalModule.forRoot(),
     NgbTooltipModule.forRoot(),
+    TreeviewModule.forRoot(),
     NgxUiLoaderModule,
     NgxUiLoaderHttpModule.forRoot({
       showForeground: true,

@@ -17,10 +17,12 @@
                 <div class="form-group">
                   <label for="number">Number</label>
                   <input
+                  name="numberinput"
                     type="email"
                     class="form-control"
                     AllowOnlyNumbers
                     id="number"
+                    [(ngModel)]="selectedProject.Number"
                     aria-describedby="emailHelp"
                     placeholder="Enter number"
                   />
@@ -30,9 +32,11 @@
                 <div class="form-group">
                   <label>Description</label>
                   <input
+                  name="descriptioninput"
                     type="text"
                     class="form-control"
                     id="name"
+                    [(ngModel)]="selectedProject.Description"
                     placeholder="Click here to enter description"
                   />
                 </div>
@@ -42,13 +46,13 @@
               <div class="col">
                 <div class="form-group">
                   <label>Type</label>
-                  <p-dropdown
-                    name="projectTypeDropDown"
-                    [options]="pts"
-                    [(ngModel)]="spts"
-                    optionLabel="Code"
-                    styleClass="form-control"
-                  ></p-dropdown>
+                  <app-dropdown
+                    inputName="projectTypeDropDown"
+                    [itemSource]="pts"
+                    [(valueModel)]="selectedProject.TypeGuid"
+                    displayMember="Code"
+                    valueMember="Guid"
+                  ></app-dropdown>
                 </div>
               </div>
               <div class="col">
@@ -236,7 +240,7 @@
               <div class="col-5">
                 <div class="form-group">
                   <label>Purchase Order Number</label>
-                  <input type="text" AllowOnlyNumbers class="form-control" />
+                  <input type="text" name="poinput" [(ngModel)]="selectedProject.PurchaseOrderNumber" AllowOnlyNumbers class="form-control" />
                 </div>
               </div>
             </div>
@@ -254,9 +258,13 @@
                 </div>
               </div>
               <div class="col">
-                <div class="form-group">
+                <div class="form-group dropdown-treeview-container">
                   <label>Geography</label>
-                  <p-dropdown styleClass="form-control"></p-dropdown>
+                  <ngx-dropdown-treeview name="geographyTreeDropdown"
+                   [config]="config" [items]="geographies" 
+                   (selectedChange)="values = $event" 
+                   (filterChange)="onFilterChange($event)">
+          </ngx-dropdown-treeview>
                 </div>
               </div>
             </div>
@@ -281,17 +289,19 @@
           </p-accordionTab>
           <p-accordionTab header="PROJECT TAGS" [selected]="true">
             <div class="row">
-              <div class="col">
+              <!-- <div class="col">
                 <div class="form-group">
                   <input type="text" class="form-control" />
 
                 <button class="btn btn-primary margin-top remove-margin-left">Add Tags</button>
                 </div>
-              </div>
+              </div> -->
               <div class="col">
                 <div class="form-group">
-                  <input type="text" class="form-control" />
-                  <tag-input [ngModel]="itemsAsObjects" [identifyBy]="'id'" [displayBy]="'name'"></tag-input>
+                  <tag-input name="projectTags" [disable]="!isProjectSave"
+                    [ngModel]="projectTags" [identifyBy]="'Guid'" [displayBy]="'Tag'"
+                    (onAdd)="onItemAdded($event)"
+                    (onRemove)="onItemRemoved($event)"></tag-input>
                 </div>
               </div>
             </div>
