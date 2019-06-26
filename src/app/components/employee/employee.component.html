@@ -1,72 +1,167 @@
-<div class="modal-header">
-  <h5 class="modal-title">Create New Employee</h5>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-primary">Save</button>
-  <button type="button" class="btn btn-secondary">Cancel</button>
-</div>
-<div class="container">
-    
-  <div class="row">
-    <div class="col">
-      <div class="form-group">
-        <label>First Name </label>
-        <input type="text" id="firstName" class="form-control">
+<div class="employee-wrapper">
+  <div class="from-header">
+    <div class="row">
+      <div class="col-md-6">
+        <h5>Create New Employee</h5>
       </div>
-    </div>
-    <div class="col">
-      <div class="form-group">
-        <label>Last Name </label>
-        <input type="text" id="LastName" class="form-control">
+      <div class="col-md-6">
+        <div class="text-right">
+          <button type="button" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-primary">Cancel</button>
+        </div>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col">
-      <div class="form-group">
-        <label>Email Address </label>
-        <input type="email" id="email" class="form-control">
-      </div>
+      <p-accordion [multiple]="true">
+        <p-accordionTab header="USER PROFILE" [selected]="true">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>First Name </label>
+                <input type="text" id="firstName" class="form-control" />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>Last Name </label>
+                <input type="text" id="LastName" class="form-control" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>Email Address </label>
+                <input type="email" id="email" class="form-control" />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>Phone Number </label>
+                <input type="text" AllowOnlyNumbers id="LastName" class="form-control" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <button type="button" class="btn btn-primary" ngbTooltip="Add Avtar"><i class="fa fa-plus"></i></button>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>Role </label>
+                <p-dropdown styleClass="form-control"></p-dropdown>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>Status </label>
+                <p-dropdown styleClass="form-control" [options]="status" [(ngModel)]="selectedStatus"
+                  optionLabel="label"></p-dropdown>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>Joining Date </label>
+                <p-calendar icon="pi pi-calendar" showIcon="true" panelStyleClass="form-control">
+                </p-calendar>
+                <!-- <input type="date" id="joiningDate" class="form-control"> -->
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>End Date </label>
+                <p-calendar icon="pi pi-calendar" showIcon="true" panelStyleClass="form-control"></p-calendar>
+                <!-- <input type="date" id="endDate" class="form-control"> -->
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+      <p-accordion [multiple]="true">
+        <p-accordionTab header="DETAILS" [selected]="true">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group ">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>Effective Date </label>
+                <p-calendar icon="pi pi-calendar" showIcon="true" panelStyleClass="form-control">
+                </p-calendar>
+              </div>
+            </div>
+            <div class="col">
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary" ngbTooltip="Manage Remuneration"><i
+                    class="fa fa-pencil-alt"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>Hourly Rate </label>
+                <input type="text" AllowOnlyNumbers id="hourlyRate" class="form-control" />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>Target %Billable </label>
+                <input type="text" AllowOnlyNumbers id="targetBillable" class="form-control" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>License Type </label>
+                <p-dropdown styleClass="form-control" [options]="licenseType" [(ngModel)]="selectedLicenseType"
+                  optionLabel="label"></p-dropdown>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
     </div>
-    <div class="col">
-      <div class="form-group">
-        <label>Phone Number </label>
-        <input type="number" id="LastName" class="form-control">
+  </div>
+  <div class="from-footer">
+    <div class="row">
+      <div class="col">
+        <div class="text-right">
+          <button type="button" class="btn btn-primary">Delete Employee</button>
+        </div>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col">
-      <div class="form-group">
-        <label>Role </label>
-        <app-auto-complete [inline-input]="true"></app-auto-complete>
-      </div>
-    </div>
-    <div class="col">
-      <div class="form-group">
-        <label>Status </label>
-        <app-auto-complete [inline-input]="true"></app-auto-complete>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <div class="form-group">
-        <label>Joining Date </label>
-        <input type="date" id="joiningDate" class="form-control">
-      </div>
-    </div>
-    <div class="col">
-      <div class="form-group">
-        <label>End Date </label>
-        <input type="date" id="endDate" class="form-control">
-      </div>
-    </div>
-  </div>
-  <!-- <div class="modal-footer">
-      <button type="button" tabindex="6" class="btn btn-primary">Delete Employee</button>
-  </div> -->
-</div>
-<div class="btn-group">
-  <button type="button" class="btn btn-primary float-right">Delete Employee</button>
 </div>

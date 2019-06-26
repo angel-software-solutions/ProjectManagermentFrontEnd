@@ -34,6 +34,7 @@ import { CustomersComponent } from "./components/customers/customers.component";
 import { ImageUploadComponent } from "./common-components/image-upload/image-upload.component";
 import { CustomerService } from "./services/customer.service";
 import { CustomersViewComponent } from "./components/customers-view/customers-view.component";
+import { DropdownComponent } from "./common-components/dropdown/dropdown.component";
 
 export const appComponents = [
   MainLayoutComponent,
@@ -62,7 +63,8 @@ export const appComponents = [
   CustomersComponent,
   ProjectFormComponent,
   ImageUploadComponent,
-  CustomersViewComponent
+  CustomersViewComponent,
+  DropdownComponent
 ];
 
 export const appServices = [
@@ -74,8 +76,7 @@ export const appServices = [
   AutoCompleteService,
   AllowOnlyNumbersDirective,
   NavigationBarHelperService,
-  SidebarHelperService,
-  CustomerService
+  SidebarHelperService
 ];
 
 export const appEntryComponents = [ConfirmModalDialogComponent];
