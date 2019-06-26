@@ -1,4 +1,3 @@
-
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { LoginComponent } from "./components/login/login.component";
@@ -14,8 +13,9 @@ import { UserSettingsComponent } from "./components/user-settings/user-settings.
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
 import { ProjectExpenseComponent } from "./components/project-expense/project-expense.component";
 import { ProjectFormComponent } from "./components/project-form/project-form.component";
-import { EmployeeComponent } from './components/employee/employee.component';
-import { CustomersComponent } from './components/customers/customers.component';
+import { EmployeeComponent } from "./components/employee/employee.component";
+import { CustomersComponent } from "./components/customers/customers.component";
+import { CustomersViewComponent } from "./components/customers-view/customers-view.component";
 
 const routes: Routes = [
   {
@@ -67,12 +67,23 @@ const routes: Routes = [
       },
       {
         component: EmployeeComponent,
-        pathMatch: 'full',
-        path: 'employees'
-      },{
+        pathMatch: "full",
+        path: "employees"
+      },
+      {
+        component: CustomersViewComponent,
+        pathMatch: "full",
+        path: "customers"
+      },
+      {
         component: CustomersComponent,
-        pathMatch: 'full',
-        path: 'customers'
+        pathMatch: "full",
+        path: "customers/new"
+      },
+      {
+        component: CustomersComponent,
+        pathMatch: "full",
+        path: "customers/edit/:guid"
       },
       {
         component: MyProfileComponent,
