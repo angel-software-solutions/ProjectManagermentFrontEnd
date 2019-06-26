@@ -5,23 +5,35 @@
         <div class="table">
           <table class="table">
             <thead>
-            <tr>
-              <ng-container *ngFor="let column of tableHeaderColumns">
-                <th><span>{{column.columnHeading}}</span></th>
-              </ng-container>
-            </tr>
+              <tr>
+                <ng-container *ngFor="let column of tableHeaderColumns">
+                  <th>
+                    <span>{{ column.columnHeading }}</span>
+                  </th>
+                </ng-container>
+              </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let rowItem of tableRenderingData">
-              <ng-container *ngFor="let column of tableHeaderColumns">
+              <tr *ngFor="let rowItem of tableRenderingData">
+                <ng-container *ngFor="let column of tableHeaderColumns">
+                  <td>
+                    {{ rowItem[column.dbColumnName] }}
+                  </td>
+                </ng-container>
                 <td>
-                  {{rowItem[column.dbColumnName]}}
-                  <!-- <ng-container *ngSwitch="column.dataType">
-
-                  </ng-container>-->
+                  <div class="btn-group">
+                    <ng-container *ngFor="let button of tableActionColumns">
+                      <button
+                        type="button"
+                        class="btn {{ button.styleClass }}"
+                        (click)="OnActionButtonClicked($event, button, rowItem)"
+                      >
+                        <i class="fa {{ button.iconClass }}"></i>
+                      </button>
+                    </ng-container>
+                  </div>
                 </td>
-              </ng-container>
-            </tr>
+              </tr>
             </tbody>
           </table>
         </div>
