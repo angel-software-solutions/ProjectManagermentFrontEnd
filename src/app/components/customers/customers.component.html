@@ -17,7 +17,7 @@
     </div>
     <div class="from-body">
       <p-accordion [multiple]="true">
-        <p-accordionTab header="CUSTOMER" [selected]="true">
+        <p-accordionTab header="CUSTOMER" [selected]="true" class="accordion">
           <div class="row">
             <div class="col">
               <app-image-upload
@@ -121,25 +121,35 @@
         <p-accordionTab header="CONTACTS" [selected]="true">
           <div class="row">
             <div class="col">
-              <div class="uiGrd"></div>
+              <div class="editable-cell">
+                <div
+                  class="editable-cell-value-wrap"
+                  (click)="startEdit(rowData.guid)"
+                >
+                  <app-common-data-grid
+                    [table-columns]="contactColumns"
+                    [table-data]="rowData"
+                  >
+                  </app-common-data-grid>
+                </div>
+              </div>
             </div>
           </div>
         </p-accordionTab>
-        <!-- <div>Grid</div>   -->
       </p-accordion>
     </div>
     <div class="row">
       <div class="col">
         <div class="text-right">
-          <button type="button" class="btn btn-primary">Delete</button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="DeleteCustomer()"
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>
   </form>
 </div>
-
-<!-- <div class="ui-g-2">FIRST NAME</div>
-<div class="ui-g-2">LAST NAME</div>
-<div class="ui-g-2">EMAIL ADDRESS</div>
-<div class="ui-g-2">OFFICE NUMBER</div>
-<div class="ui-g-2">CELL PHONE NUMBER</div> -->

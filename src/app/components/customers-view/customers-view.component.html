@@ -1,0 +1,23 @@
+<div class="customer-wrapper">
+  <div class="row">
+    <div class="col">
+      <h4>Customers</h4>
+    </div>
+    <div class="col-text-right">
+      <button
+        type="button"
+        class="btn btn-primary"
+        ngbToolTip="Create Customer"
+        (click)="onCreateCustomer()"
+      >
+        <i class="fa fa-plus"></i>
+      </button>
+    </div>
+  </div>
+  <app-common-data-grid
+    [table-columns]="customerColumns"
+    [table-data]="rowData"
+    [table-action-columns]="customerActionColumns"
+    (on-event-performed)="OnTableEventPerformed($event)"
+  ></app-common-data-grid>
+</div>

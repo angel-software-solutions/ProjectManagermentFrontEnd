@@ -1,29 +1,16 @@
 import { Injectable } from "@angular/core";
 import { AppRestService } from "./app-rest.service";
 import { CustomerModel } from "../models/customer-model";
+import { promise } from "protractor";
+import { error } from "@angular/compiler/src/util";
 
 @Injectable({
   providedIn: "root"
 })
 export class CustomerService {
   private customerAPI: string = "api/customer/";
-
+  public customer: CustomerModel;
   constructor(private appRestService: AppRestService) {}
-
-  public getCustomerData(queryParams: any) {
-    return new Promise((onResolve, onReject) => {
-      this.appRestService
-        .doGet(this.customerAPI + "GetAllCustomers", queryParams)
-        .subscribe(
-          success => {
-            onResolve(success);
-          },
-          error => {
-            onReject(error);
-          }
-        );
-    });
-  }
 
   public getAllCustomers(): Promise<Array<CustomerModel>> {
     return new Promise((resolve, reject) => {
@@ -39,6 +26,21 @@ export class CustomerService {
       );
     });
   }
+  public getCustomerByGuid(customerGuid: string): Promise<CustomerModel> {
+    return new Promise((onRequestAccepted, onRequestRejected) => {
+      this.appRestService.doGet(this.customerAPI + customerGuid).subscribe(
+        customer => {
+          let customerModel = new CustomerModel();
+          Object.assign(customerModel, customer);
+          onRequestAccepted(customerModel);
+        },
+        error => {
+          onRequestRejected(null);
+        }
+      );
+    });
+  }
+
   public createCustomer(model: CustomerModel, profilePicture) {
     return new Promise((onResolve, onReject) => {
       // const formData = new FormData();
@@ -55,6 +57,33 @@ export class CustomerService {
           onReject(error);
         }
       );
+    });
+  }
+  public updateCustomer(model: CustomerModel) {
+    return new Promise((onResolve, onReject) => {
+      this.appRestService.doPatch(this.customerAPI, model).subscribe(
+        success => {
+          onResolve(success);
+        },
+        error => {
+          onReject(error);
+        }
+      );
+    });
+  }
+
+  deleteCustomer(guid: Array<string>) {
+    return new Promise((onResolve, onReject) => {
+      this.appRestService
+        .delete(this.customerAPI + "/" + guid.join(","))
+        .subscribe(
+          success => {
+            onResolve(success);
+          },
+          error => {
+            onReject(error);
+          }
+        );
     });
   }
 }

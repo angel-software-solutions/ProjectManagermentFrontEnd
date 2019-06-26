@@ -16,6 +16,7 @@ import { ProjectFormComponent } from "./components/project-form/project-form.com
 import { EmployeeComponent } from "./components/employee/employee.component";
 import { CustomersComponent } from "./components/customers/customers.component";
 import { EmployeeListComponent } from "./components/employee-list/employee-list.component";
+import { CustomersViewComponent } from "./components/customers-view/customers-view.component";
 
 const routes: Routes = [
   {
@@ -76,9 +77,19 @@ const routes: Routes = [
         path: "employees/new"
       },
       {
-        component: CustomersComponent,
+        component: CustomersViewComponent,
         pathMatch: "full",
         path: "customers"
+      },
+      {
+        component: CustomersComponent,
+        pathMatch: "full",
+        path: "customers/new"
+      },
+      {
+        component: CustomersComponent,
+        pathMatch: "full",
+        path: "customers/edit/:guid"
       },
       {
         component: MyProfileComponent,
