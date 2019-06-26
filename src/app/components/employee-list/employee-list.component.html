@@ -1,0 +1,16 @@
+<div class="employee-wrapper">
+  <div class="row">
+    <div class="col">
+      <h4>Employees</h4>
+    </div>
+    <div class="col-text-right">
+      <button type="button" class="btn btn-primary" ngbToolTip="Create Employee" (click)="onCreateEmployee()">
+        <i class="fa fa-plus"></i>
+      </button>
+    </div>
+  </div>
+  <app-common-data-grid [table-columns]="employeeColumns" [table-data]="rowData"></app-common-data-grid>
+  <!-- 
+    [table-action-columns]="customerActionColumns" (on-event-performed)="OnTableEventPerformed($event)">
+  </app-common-data-grid> -->
+</div>

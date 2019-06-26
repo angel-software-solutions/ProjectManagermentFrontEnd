@@ -34,6 +34,7 @@ import { CustomersComponent } from "./components/customers/customers.component";
 import { ImageUploadComponent } from "./common-components/image-upload/image-upload.component";
 import { CustomerService } from "./services/customer.service";
 import { DropdownComponent } from "./common-components/dropdown/dropdown.component";
+import { EmployeeListComponent } from "./components/employee-list/employee-list.component";
 
 export const appComponents = [
   MainLayoutComponent,
@@ -62,7 +63,8 @@ export const appComponents = [
   CustomersComponent,
   ProjectFormComponent,
   ImageUploadComponent,
-  DropdownComponent
+  DropdownComponent,
+  EmployeeListComponent
 ];
 
 export const appServices = [
