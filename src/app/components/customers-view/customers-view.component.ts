@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { TableColumnDefinition } from "src/app/models/TableColumnDefinition";
+import { TableColumnDefinition } from "src/app/models/table-column-definition";
 import { CustomerModel } from "src/app/models/customer-model";
 import { CustomerService } from "src/app/services/customer.service";
 import { HandleHttpErrorsService } from "src/app/services/handle-http-errors.service";

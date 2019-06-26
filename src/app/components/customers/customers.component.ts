@@ -4,7 +4,7 @@ import { CustomerModel } from "src/app/models/customer-model";
 import { NgbModal, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { HandleHttpErrorsService } from "../../services/handle-http-errors.service";
-import { TableColumnDefinition } from "src/app/models/TableColumnDefinition";
+import { TableColumnDefinition } from "src/app/models/table-column-definition";
 import { CustomercontactService } from "src/app/services/customercontact.service";
 import { CustomerContact } from "src/app/models/customer-contact.model";
 import { Router, ActivatedRoute, Params } from "@angular/router";
