@@ -58,13 +58,14 @@
               <div class="col">
                 <div class="form-group">
                   <label for="status">Status</label>
-                  <p-dropdown
-                    name="projectStatusDropDown"
-                    [options]="psts"
-                    [(ngModel)]="spst"
-                    optionLabel="Code"
+                  <app-dropdown
+                  inputName="projectStatusDropDown"
+                    [itemSource]="psts"
+                    [(valueModel)]="selectedProject.StatusGuid"
+                    displayMember="Code"
+                    valueMember="Guid"
                     styleClass="form-control"
-                  ></p-dropdown>
+                  ></app-dropdown>
                 </div>
               </div>
             </div>
@@ -74,14 +75,15 @@
               <div class="col">
                 <div class="form-group">
                   <label>Name</label>
-                  <p-dropdown
-                    name="customerdropdown"
-                    [options]="customers"
-                    [(ngModel)]="selectedCustomer"
-                    optionLabel="ClientName"
+                  <app-dropdown
+                    inputName="customerdropdown"
+                    [itemSource]="customers"
+                    [(valueModel)]="selectedProject.CustomerGuid"
+                    displayMember="ClientName"
+                    valueMember="Guid"
                     styleClass="form-control"
                     (onChange)="onCustomerChange($event)"
-                  ></p-dropdown>
+                  ></app-dropdown>
                 </div>
               </div>
               <div class="col">
