@@ -1,5 +1,11 @@
-enum LicenseTypes {
+enum LicenseType {
   Professional,
   Executive
 }
-export { LicenseTypes };
+
+const LicenseTypes = new Map<number, string>([
+  [LicenseType.Professional, "Professional"],
+  [LicenseType.Executive, "Executive"]
+]);
+
+export { LicenseType, LicenseTypes };

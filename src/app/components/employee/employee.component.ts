@@ -6,7 +6,7 @@ import { EmployeeService } from "../../services/employee.service";
 import { ToastrService } from "ngx-toastr";
 import { UserRole } from "../../models/user-role-model";
 import { UserRoleService } from "../../services/user-role.service";
-import { LicenseTypes } from "../../Enums/LicenseTypes";
+import { LicenseTypes, LicenseType } from "../../Enums/LicenseTypes";
 import { EnumUtility } from "src/app/Helpers/EnumUtility";
 
 @Component({
@@ -20,8 +20,7 @@ export class EmployeeComponent implements OnInit {
   status: SelectItem[];
   selectedStatus: any;
 
-  licensetype: SelectItem[];
-  //licensetype: any;
+  licensetype: any;
   selectedLicenseType: any;
 
   selectedUserRole: UserRole;
@@ -36,10 +35,6 @@ export class EmployeeComponent implements OnInit {
       { label: "Active", value: 1 },
       { label: "Inactive", value: 2 }
     ];
-    this.licensetype = [
-      { label: "Professional", value: 1 },
-      { label: "Executive", value: 2 }
-    ];
   }
 
   public addEmployee() {
@@ -51,7 +46,7 @@ export class EmployeeComponent implements OnInit {
   ngOnInit() {
     this.loadUserRoles();
     this.onFormSubmit();
-    //this.licensetype = EnumUtility.GetDescription(LicenseTypes);
+    this.licensetype = EnumUtility.GetLicenseTypeList(LicenseType);
   }
 
   loadUserRoles() {
