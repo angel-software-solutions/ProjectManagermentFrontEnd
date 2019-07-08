@@ -7,8 +7,8 @@ import { Scope } from "../models/scope.model";
 })
 export class ScopeService {
   private apiUrl: string = "api/scope/";
-  constructor(private httpService: AppRestService) {}
 
+  constructor(private httpService: AppRestService) {}
   public getScopesForDropDown(): Promise<Array<Scope>> {
     return new Promise((onRequestAccepted, onRequestRejected) => {
       this.httpService.doGet(this.apiUrl).subscribe(
@@ -25,6 +25,13 @@ export class ScopeService {
           onRequestRejected(null);
         }
       );
+    });
+  }
+  public getAllScopes() {
+    return new Promise((resolve, reject) => {
+      this.httpService
+        .doGet(this.apiUrl)
+        .subscribe(success => resolve(success), error => reject(error));
     });
   }
 }

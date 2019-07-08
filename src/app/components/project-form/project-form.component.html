@@ -89,11 +89,12 @@
               <div class="col">
                 <div class="form-group">
                   <label for="projectManager">Project Manager</label>
-                  <p-dropdown
-                    name="projectmanagerdropdown"
-                    [options]="customerContacts"
-                    [(ngModel)]="selectedCustomerContact"
-                    optionLabel="FullName"
+                  <app-dropdown
+                  inputName="projectmanagerdropdown"
+                    [itemSource]="customerContacts"
+                    [(valueModel)]="selectedProject.CustomerProjectManagerGuid"
+                    displayMember="FullName"
+                    valueMember="Guid"
                     styleClass="form-control"
                   ></p-dropdown>
                 </div>
@@ -103,13 +104,14 @@
               <div class="col">
                 <div class="form-group">
                   <label>Billing Contact</label>
-                  <p-dropdown
-                    name="billingContactDropdown"
-                    [options]="customerContacts"
-                    [(ngModel)]="selectedBillingContact"
-                    optionLabel="FullName"
+                  <app-dropdown
+                    inputName="billingContactDropdown"
+                    [itemSource]="customerContacts"
+                    [(valueModel)]="selectedProject.CustomerContactGuid"
+                    displayMember="FullName"
+                    valueMember="Guid"
                     styleClass="form-control"
-                  ></p-dropdown>
+                  ></app-dropdown>
                 </div>
               </div>
               <div class="col">
@@ -133,24 +135,26 @@
               <div class="col">
                 <div class="form-group">
                   <label for="projectManager">Project Manager</label>
-                  <p-dropdown
-                    name="employeeDropdown"
-                    [options]="employees"
-                    [(ngModel)]="selectedEmployee"
-                    optionLabel="FullName"
+                  <app-dropdown
+                  inputName="employeeDropdown"
+                    [itemSource]="employees"
+                    [(valueModel)]="selectedProject.ProjectManagerGuid"
+                    displayMember="FullName"
+                    valueMember="Guid"
                     styleClass="form-control"
-                  ></p-dropdown>
+                  ></app-dropdown>
                 </div>
               </div>
 
               <div class="col">
                 <div class="form-group">
                   <label>Team Lead</label>
-                  <p-dropdown   name="teamleadDropdown"
-                  [options]="employees"
-                  [(ngModel)]="selectedTeamLead"
-                  optionLabel="FullName"
-                  styleClass="form-control"></p-dropdown>
+                  <app-dropdown   inputName="teamleadDropdown"
+                  [itemSource]="employees"
+                  [(valueModel)]="selectedProject.TeamLeadGuid"
+                  displayMember="FullName"
+                  valueMember="Guid"
+                  styleClass="form-control"></app-dropdown>
                 </div>
               </div>
             </div>
@@ -160,11 +164,13 @@
               <div class="col">
                 <div class="form-group">
                   <label>Currency</label>
-                  <p-dropdown name="currencyDropdown"
-                  [options]="currencies"
-                  [(ngModel)]="selectedCurrency"
-                  optionLabel="Name"
-                  styleClass="form-control"></p-dropdown>
+                  <app-dropdown 
+                  inputName="currencyDropdown"
+                  [itemSource]="currencies"
+                  [(valueModel)]="selectedProject.CurrencyGuid"
+                  displayMember="Name"
+                  valueMember="Guid"
+                  styleClass="form-control"></app-dropdown>
                 </div>
               </div>
 
@@ -201,11 +207,12 @@
               <div class="col">
                 <div class="form-group">
                   <label>Default Budget View</label>
-                  <p-dropdown name="budgetViewDropdown"
-                  [options]="budgetViews"
-                  [(ngModel)]="selectedBudgetView"
-                  optionLabel="Lable"
-                  styleClass="form-control"></p-dropdown>
+                  <app-dropdown inputName="budgetViewDropdown"
+                  [itemSource]="budgetViews"
+                  [(valueModel)]="selectedProject.DefaultBudgetView"
+                  displayMember="Lable"
+                  valueMember="Lable"
+                  styleClass="form-control"></app-dropdown>
                 </div>
               </div>
 

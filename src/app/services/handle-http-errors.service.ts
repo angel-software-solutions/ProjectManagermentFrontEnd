@@ -14,7 +14,7 @@ export class HandleHttpErrorsService {
   }
 
   public handleHttpError(error: any) {
-    if (error.status) {
+    if (error && error.status) {
       if (error.status == 504) {
         this.toasterService.error('Not able to connect to Server, please try again later.', 'Server Not available');
         this.clearAllAndLogoutUser()

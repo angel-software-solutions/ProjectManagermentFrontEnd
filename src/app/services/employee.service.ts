@@ -9,10 +9,7 @@ import { EmployeesModel } from "../models/employee";
 export class EmployeeService {
   private apiUrl: string = "api/employee/";
 
-  constructor(
-    private httpService: AppRestService,
-    private appRestService: AppRestService
-  ) {}
+  constructor(private httpService: AppRestService) {}
 
   public getEmployeesForDropDown(): Promise<Array<Employee>> {
     return new Promise((onRequestAccepted, onRequestRejected) => {
@@ -37,7 +34,7 @@ export class EmployeeService {
   }
   public createEmployee(model: EmployeesModel) {
     return new Promise((onResolve, onReject) => {
-      this.appRestService.doPost(this.apiUrl, model).subscribe(
+      this.httpService.doPost(this.apiUrl, model).subscribe(
         success => {
           onResolve(success);
         },
@@ -49,7 +46,7 @@ export class EmployeeService {
   }
   public getAllEmployees(): Promise<Array<EmployeesModel>> {
     return new Promise((resolve, reject) => {
-      this.appRestService.doGet(this.apiUrl).subscribe(
+      this.httpService.doGet(this.apiUrl).subscribe(
         c => {
           let _c = new Array<EmployeesModel>();
           Object.assign(_c, c);
@@ -59,6 +56,21 @@ export class EmployeeService {
           reject(err);
         }
       );
+    });
+  }
+  public getAllEmployeesByTerms(searchQueryParams: any) {
+    return new Promise((onResolved, onRejected) => {
+      this.httpService
+        .doGet(this.apiUrl, searchQueryParams)
+        .subscribe(success => onResolved(success), error => onRejected(error));
+    });
+  }
+
+  public getAllInActiveEmployee() {
+    return new Promise((onResolved, onRejected) => {
+      this.httpService
+        .doGet(this.apiUrl + "in-active")
+        .subscribe(success => onResolved(success), error => onRejected(error));
     });
   }
 }

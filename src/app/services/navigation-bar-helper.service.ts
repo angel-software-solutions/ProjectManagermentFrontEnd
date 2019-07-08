@@ -1,53 +1,55 @@
-import {Injectable} from '@angular/core';
-import {NavigationItemsModel} from "../models/navigation-items-model";
+import { Injectable } from "@angular/core";
+import { NavigationItemsModel } from "../models/navigation-items-model";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class NavigationBarHelperService {
-
   private readonly navigationBarItems: Array<NavigationItemsModel> = [];
 
   constructor() {
     this.navigationBarItems = [
       {
-        displayLabel: 'Projects',
-        id: 'Projects',
-        route: '/projects',
-        iconClass: 'fa-folder',
-        children: null,
-      }, {
-        displayLabel: 'Tasks',
-        id: 'Tasks',
-        route: '/tasks',
-        iconClass: 'fa-paper-plane',
-        children: null,
-      }, {
-        displayLabel: 'Timesheet',
-        id: 'Timesheet',
-        route: '/timesheet',
-        iconClass: 'fa-calendar-alt',
-        children: null,
-      }, {
-        displayLabel: 'Users',
-        id: 'Users',
-        route: '/users',
-        iconClass: 'fa-users',
-        children: null,
+        displayLabel: "Projects",
+        id: "Projects",
+        route: "/projects",
+        iconClass: "fa-folder",
+        children: null
       },
       {
-        displayLabel: 'Customer',
-        id: 'Customers',
-        route: '/customers',
-        iconClass: 'fa-user-tie',
-        children: null,
-      }, 
+        displayLabel: "Tasks",
+        id: "Tasks",
+        route: "/tasks",
+        iconClass: "fa-paper-plane",
+        children: null
+      },
       {
-        displayLabel: 'Employees',
-        id: 'Employees',
-        route: '/employees',
-        iconClass: 'fa-user-tag',
-        children: null,
+        displayLabel: "Timesheet",
+        id: "Timesheet",
+        route: "/timesheet",
+        iconClass: "fa-calendar-alt",
+        children: null
+      },
+      {
+        displayLabel: "Users",
+        id: "Users",
+        route: "/users",
+        iconClass: "fa-users",
+        children: null
+      },
+      {
+        displayLabel: "Customer",
+        id: "Customers",
+        route: "/customers",
+        iconClass: "fa-user-tie",
+        children: null
+      },
+      {
+        displayLabel: "Employees",
+        id: "Employees",
+        route: "/employees",
+        iconClass: "fa-user-tag",
+        children: null
       }
     ];
   }

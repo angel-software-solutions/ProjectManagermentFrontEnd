@@ -6,7 +6,7 @@ import {TimesheetModel} from "../models/timesheet-model";
   providedIn: 'root'
 })
 export class TimesheetService {
-  private timesheetAPIEndPoint: string = '/api/timesheet/';
+  private timesheetAPIEndPoint: string = 'api/timesheet/';
 
   constructor(private appRestService: AppRestService) {
   }

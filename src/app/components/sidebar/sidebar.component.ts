@@ -1,6 +1,10 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, NgZone, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {SidebarHelperService} from "../../services/sidebar-helper.service";
+import {ProjectsService} from "../../services/projects.service";
+import {EmployeeService} from "../../services/employee.service";
+import {CommonConstantsService} from "../../services/common-constants.service";
+import {GroupService} from "../../services/group.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -19,25 +23,38 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   public activeNavigationItem: any = {};
   public customNavItem: any;
   public customDropdownOptions: any[] = [];
-  private listingItems: any[];
+  private projectListingItems: any[];
   searchTerm: string = '';
   isNavbarDropdownOpened: boolean = false;
+  public searchQueryParams: any = {search: ''};
+  private employees: Array<any>;
+  private inActiveEmployee: any[];
 
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
+              private ngZone: NgZone,
               private sidebarHelperService: SidebarHelperService,
+              private projectService: ProjectsService,
+              private employeeService: EmployeeService,
+              private groupService: GroupService,
               private router: Router) {
     this.navigationItems = [
-      {
+      /*{
         label: 'Projects',
         id: 'project'
+      },*/  {
+        label: 'Favourites',
+        id: 'favourite',
+        isDisabled: true,
       }, {
-        label: 'Employee',
-        id: 'employee'
+        label: 'Active',
+        id: 'active',
+        isDisabled: true,
       }, {
-        label: 'Favourite',
-        id: 'favourite'
-      }];
+        label: 'Employees',
+        id: 'employee',
+        isDisabled: false,
+      },];
     this.contextMenuItems = [
       {
         label: 'Open',
@@ -84,14 +101,44 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       {label: 'Inactive Employees', id: 'inactive_employees', menuIcon: 'fa-moon', isCustomItem: true},
       {label: 'Customers', id: 'customers', menuIcon: 'fa-user-tie', isCustomItem: true},
       {label: 'Refresh', id: 'refresh', menuIcon: 'fa-sync', isCustomItem: true},
+
     ];
-    this.activeNavigationItem = this.navigationItems[0];
     this.customNavItem = Object.assign({}, this.customDropdownOptions[0]);
-    this.customNavItem.isCustomItem = false;
+    this.activeNavigationItem = this.customNavItem;
+    this.customNavItem.isCustomItem = true;
+    this.loadAllProjects();
+    this.loadEmployees();
+    // this.loadInActiveEmployees();
   }
 
   ngOnInit() {
-    this.listingItems = this.sidebarHelperService.getStaticProjectList();
+  }
+
+  private getAllGroup() {
+    this.groupService.getAllGroups().then(success => {
+      this.customDropdownOptions[2].children = success;
+    }, error => {
+    });
+  }
+
+  private loadAllProjects() {
+    this.projectService.getAllProjectForNavigation(this.searchQueryParams).then((success: Array<any>) => {
+      this.ngZone.run(() => {
+        this.projectListingItems = [...success];
+      });
+      this.changeDetectorRef.detectChanges();
+    }, onError => {
+    });
+  }
+
+  private loadEmployees() {
+    this.employeeService.getAllEmployees(this.searchQueryParams).then((success: Array<any>) => this.employees = [...success], error => {
+    });
+  }
+
+  private loadInActiveEmployees() {
+    this.employeeService.getAllInActiveEmployee().then((success: Array<any>) => this.inActiveEmployee = [...success], error => {
+    });
   }
 
   ngAfterViewInit(): void {
@@ -100,6 +147,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   toggleSidebar() {
     this.isSidebarVisible = !this.isSidebarVisible;
+    this.searchQueryParams.search = '';
   }
 
   isNavItemActive(navItem: any) {
@@ -107,38 +155,71 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   }
 
   selectItem(navItem: any) {
-    this.activeNavigationItem = navItem;
-    if (!navItem.isCustomItem) {
-      this.customNavItem = Object.assign({}, this.customDropdownOptions[0]);
-      this.customNavItem.isCustomItem = false;
+    //
+    // todo Make a refresh call for all current data as previous filter
+    console.info('selectItem', navItem);
+    if (navItem.id !== 'refresh') {
+      this.activeNavigationItem = navItem;
+      if (navItem.isCustomItem) {
+        this.customNavItem = navItem;
+        // Object.assign({}, this.customDropdownOptions[0]);
+        // this.customNavItem.isCustomItem = false;
+      }
     }
-
     switch (navItem.id) {
-      case 'project':
-        this.listingItems = this.sidebarHelperService.getStaticProjectList();
+      case 'all_projects':
+        this.loadAllProjects();
+        this.customNavItem = navItem;
         break;
+
+      case "completed_projects":
+        this.searchQueryParams['projectStatus'] = CommonConstantsService.ProjectStatus.COMPLETED;
+        this.loadAllProjects();
+        this.customNavItem = navItem;
+        break;
+
+      case 'project_groups':
+        this.projectListingItems = [];
+        break;
+
+      case 'inactive_employees':
+        this.loadInActiveEmployees();
+        break;
+
+      case 'teams':
+        this.projectListingItems = [];
+        break;
+
+      case 'inactive_employees':
+        this.projectListingItems = [];
+        break;
+
+      case 'customers':
+        this.projectListingItems = [];
+        break;
+
       case 'employee':
-        this.listingItems = [];
+        this.loadEmployees();
         break;
+
       case 'favourite':
-        this.listingItems = [];
+        this.projectListingItems = [];
         break;
+
       case 'custom':
-        this.listingItems = [];
+        this.projectListingItems = [];
         break;
+
       default:
-        if (navItem.isCustomItem) {
+        /*if (navItem.isCustomItem) {
           this.customNavItem = navItem;
-        }
-        break
+        }*/
+        break;
     }
   }
 
   getItemCSSClass(projectItem: any) {
-    // Replacing Space with Hyphen and converting to lower case
-    let className = projectItem.status.replace(/ /g, '-');
-    className = className.toLowerCase();
-    return className;
+    return projectItem.status.replace(/ /g, '-').toLowerCase();
   }
 
   showDropdownMenu() {
@@ -149,6 +230,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   onDocumentClicked(event: any) {
     if (this.navbarDropdownButton && !this.navbarDropdownButton.nativeElement.contains(event.target)) {
       this.isNavbarDropdownOpened = false;
+      this.searchQueryParams.search = '';
     }
   }
 
@@ -159,13 +241,16 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   makeContextMenuVisible(event: MouseEvent, myContextMenu) {
     event.preventDefault();
     event.stopPropagation();
-    // this.prepCm();
     myContextMenu.show(event);
     return false;
   }
 
   onProjectItemClicked(event: MouseEvent, projectItem: any) {
     this.isSidebarVisible = false;
-    this.router.navigate(['projects', 'expense', projectItem.Guid]);
+    this.router.navigate(['projects', 'expense', projectItem.guid]);
+  }
+
+  onSearchQueryChangedEventListener(event) {
+    console.info('onSearchQueryChangedEventListener', event);
   }
 }

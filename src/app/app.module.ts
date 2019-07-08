@@ -17,13 +17,11 @@ import { DropdownModule } from "primeng/dropdown";
 import { CheckboxModule } from "primeng/checkbox";
 import { ButtonModule } from "primeng/button";
 import { CalendarModule } from "primeng/calendar";
-
 import { TagInputModule } from "ngx-chips";
-// import { CalendarModule, DateAdapter } from "angular-calendar";
-import { adapterFactory } from "angular-calendar/date-adapters/date-fns";
+import { TreeviewModule } from "ngx-treeview";
 import { DragAndDropModule } from "angular-draggable-droppable";
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from "ngx-ui-loader";
-import { TreeviewModule } from "ngx-treeview";
+import { adapterFactory } from "angular-calendar/date-adapters/date-fns";
 
 import {
   appComponents,
@@ -38,18 +36,12 @@ import { AppComponent } from "./app.component";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    // NoopAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    // CalendarModule.forRoot({
-    //   provide: DateAdapter,
-    //   useFactory: adapterFactory
-    // }),
     DragAndDropModule.forRoot(),
     NgbModalModule.forRoot(),
     NgbTooltipModule.forRoot(),
-    TreeviewModule.forRoot(),
     NgxUiLoaderModule,
     NgxUiLoaderHttpModule.forRoot({
       showForeground: true,
@@ -71,6 +63,7 @@ import { AppComponent } from "./app.component";
     CheckboxModule,
     ButtonModule,
     CalendarModule,
+    TreeviewModule.forRoot(),
     TagInputModule
     // MenuItem,
   ],

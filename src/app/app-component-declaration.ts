@@ -28,6 +28,9 @@ import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { SidebarHelperService } from "./services/sidebar-helper.service";
 import { FilterArrayPipe } from "./services/filter-array.pipe";
 import { ProjectExpenseComponent } from "./components/project-expense/project-expense.component";
+import { PayrollTypeService } from "./services/payroll-type.service";
+import { ScopeService } from "./services/scope.service";
+import { GroupService } from "./services/group.service";
 import { ProjectFormComponent } from "./components/project-form/project-form.component";
 import { EmployeeComponent } from "./components/employee/employee.component";
 import { CustomersComponent } from "./components/customers/customers.component";
@@ -78,7 +81,10 @@ export const appServices = [
   AutoCompleteService,
   AllowOnlyNumbersDirective,
   NavigationBarHelperService,
-  SidebarHelperService
+  SidebarHelperService,
+  PayrollTypeService,
+  ScopeService,
+  GroupService
 ];
 
 export const appEntryComponents = [ConfirmModalDialogComponent];

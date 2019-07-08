@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ProjectModel } from "../models/project-model";
 import { AppRestService } from "./app-rest.service";
+import { ProjectExpenseRowModel } from "../models/project-expense-row-model";
 import { ProjectType } from "../models/projecttype";
 import { Projectstatus } from "../models/projectstatus";
 
@@ -12,7 +13,30 @@ export class ProjectsService {
 
   constructor(private httpService: AppRestService) {}
 
-  public getProjectByGuid(projectGuid: string): Promise<ProjectModel> {
+  public getAllProjectForNavigation(queryParams: any) {
+    return new Promise((onResolved, onRejected) => {
+      this.httpService
+        .doGet(this.apiUrl, queryParams)
+        .subscribe(success => onResolved(success), error => onRejected(error));
+    });
+  }
+
+  public getProjectExpenseByProjectGuid(projectGuid: string) {
+    return new Promise((onRequestAccepted, onRequestRejected) => {
+      this.httpService
+        .doGet(this.apiUrl + "get-project-expense/" + projectGuid)
+        .subscribe(
+          projectExpenseList => {
+            onRequestAccepted(projectExpenseList);
+          },
+          error => {
+            onRequestRejected(null);
+          }
+        );
+    });
+  }
+
+  public getProjectByGuid(projectGuid: string): Promise<any> {
     return new Promise((onRequestAccepted, onRequestRejected) => {
       this.httpService
         .doGet(this.apiUrl + "get-project/" + projectGuid)
@@ -56,6 +80,21 @@ export class ProjectsService {
           onRequestRejected(null);
         }
       );
+    });
+  }
+
+  public getProjectRolesByProjectGuid(projectGuid: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.httpService
+        .doGet(this.apiUrl + "get-project-roles/" + projectGuid)
+        .subscribe(
+          projectRoles => {
+            resolve(projectRoles);
+          },
+          error => {
+            reject(error);
+          }
+        );
     });
   }
 }

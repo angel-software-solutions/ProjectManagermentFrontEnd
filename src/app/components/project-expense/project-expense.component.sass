@@ -15,8 +15,47 @@
       font-size: 1rem
 
   .page-body
+    .action-wrapper
+      .dropdown
+        .dropdown-menu
+          left: auto
+          right: 0
+
+          .dropdown-item
+            .fa
+              margin-right: 4px
+
     .tree-table-wrapper
       margin-top: 15px
+
+      ::ng-deep .tree-table-column-header
+        text-align: center
+
+        .secondary-field
+          font-size: 11px
+          margin-top: 2px
+
+        &:first-child
+          text-align: left
+
+      .data-cell
+        .form-control
+          padding-top: 0
+          padding-bottom: 0
+
+        .table-currency
+          &::first-letter
+            padding-right: 4px
+
+        p-treeTableToggler
+          float: left
+          margin-right: 8px
+
+      .no-expenses-found
+        text-align: center
+        font-size: 1.5rem
+        font-family: "Roboto Black", sans-serif
+        margin-top: 30px
 
   ::ng-deep .ui-treetable
     .ui-treetable-thead > tr > th
@@ -24,10 +63,18 @@
       border: none
 
     .ui-treetable-tbody
+      font-family: Roboto, sans-serif
+
       > tr
-        &:nth-child(odd)
+        &.parent
           background-color: rgb(241, 241, 241)
+          font-size: 14px
+          font-family: "Roboto Medium", sans-serif
 
         > td
           border: none
           border-bottom: 1px solid lightgray
+
+    .ui-editable-column
+      input:focus
+        outline: none
