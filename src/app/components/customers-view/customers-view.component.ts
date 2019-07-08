@@ -40,13 +40,17 @@ export class CustomersViewComponent implements OnInit {
       columnHeading: "NAME",
       dataType: "string",
       dbColumnName: "ClientName",
-      id: "name"
+      id: "name",
+      iconClass: "",
+      styleClass: ""
     });
     this.customerColumns.push({
       columnHeading: "ADDRESS",
       dataType: "string",
       dbColumnName: "StreetAddress",
-      id: "Address"
+      id: "Address",
+      iconClass: "",
+      styleClass: ""
     });
   }
 
