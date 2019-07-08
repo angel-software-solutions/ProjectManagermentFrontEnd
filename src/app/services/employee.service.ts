@@ -61,7 +61,7 @@ export class EmployeeService {
   public getAllEmployeesByTerms(searchQueryParams: any) {
     return new Promise((onResolved, onRejected) => {
       this.httpService
-        .doGet(this.apiUrl, searchQueryParams)
+        .doGet(this.apiUrl + "byterm", searchQueryParams)
         .subscribe(success => onResolved(success), error => onRejected(error));
     });
   }
